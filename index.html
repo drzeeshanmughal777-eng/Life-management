@@ -1,12 +1,42 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Life Management - Dr Zeeshan</title><script src="https://cdn.tailwindcss.com"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="https://apis.google.com/js/api.js" async defer></script><link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet"><style>.urdu{font-family:'Noto Nastaliq Urdu',serif}body{font-family:'Outfit',sans-serif;background:#f1f5f9}.header-bg{background:linear-gradient(135deg,#0f2b46 0%,#1a4a7a 100%)}</style></head><body>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Life Management - Dr Zeeshan</title><script src="https://cdn.tailwindcss.com"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="https://apis.google.com/js/api.js" async defer></script><link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet"><style>.urdu{font-family:'Noto Nastaliq Urdu',serif}body{font-family:'Outfit',sans-serif;background:#f1f5f9}.header-bg{background:linear-gradient(135deg,#0f2b46 0%,#1a4a7a 100%)}
+@media print{
+  body{background:white!important}
+ .no-print{display:none!important}
+  #boxesContainer{display:none!important}
+  #lockScreen{display:none!important}
+ .header-bg{padding:10px!important; -webkit-print-color-adjust:exact; print-color-adjust:exact;}
+  #printArea{display:block!important; position:static!important; width:100%!important;}
+  #printArea.no-print{display:none!important}
+  @page{margin:10mm; size:A4;}
+  table{page-break-inside:avoid!important;}
+  tr{page-break-inside:avoid!important;}
+}
+</style></head><body>
 
-<div id="lockScreen" style="position:fixed;inset:0;z-index:9999;background:#0f172a;display:flex;align-items:center;justify-content:center;padding:24px;"><div style="background:white;border-radius:24px;padding:32px;width:100%;max-width:340px;text-align:center;"><img src="profile.jpg" style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:block;object-fit:cover;border:4px solid #e0e7ff;"><h2 style="font-weight:bold;font-size:20px;">Life Management</h2><p style="font-size:12px;color:#64748b;margin-bottom:16px;">Dr. Zeeshan Mughal</p><input id="passInput" type="password" placeholder="Enter Password" style="width:100%;border:1px solid #cbd5e1;border-radius:9999px;padding:12px 16px;text-align:center;outline:none;"><button onclick="checkPass()" style="margin-top:12px;width:100%;background:#4f46e5;color:white;padding:12px;border-radius:9999px;font-weight:600;border:none;cursor:pointer;">Unlock 🔓</button><p id="passError" style="color:#ef4444;font-size:12px;margin-top:8px;display:none;">Wrong password</p></div></div>
+<div id="lockScreen" style="position:fixed;inset:0;z-index:9999;background:#0f172a;display:flex;align-items:center;justify-content:center;padding:24px;" class="no-print"><div style="background:white;border-radius:24px;padding:32px;width:100%;max-width:340px;text-align:center;"><img src="profile.jpg" style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:block;object-fit:cover;border:4px solid #e0e7ff;"><h2 style="font-weight:bold;font-size:20px;">Life Management</h2><p style="font-size:12px;color:#64748b;margin-bottom:16px;">Dr. Zeeshan Mughal</p><input id="passInput" type="password" placeholder="Enter Password" style="width:100%;border:1px solid #cbd5e1;border-radius:9999px;padding:12px 16px;text-align:center;outline:none;"><button onclick="checkPass()" style="margin-top:12px;width:100%;background:#4f46e5;color:white;padding:12px;border-radius:9999px;font-weight:600;border:none;cursor:pointer;">Unlock 🔓</button><p id="passError" style="color:#ef4444;font-size:12px;margin-top:8px;display:none;">Wrong password</p></div></div>
 
-<div class="header-bg text-white p-5 pb-10 text-center"><img src="profile.jpg" class="w-20 h-20 rounded-full border-4 border-white mx-auto shadow-lg object-cover"><h1 class="urdu text-3xl text-yellow-300 mt-2">والله خير الرازقين</h1><p class="text-sm mt-1 font-semibold">Life Management - Dr Zeeshan Mughal | <span id="cloudStatus">☁️ drzeeshanmughal777@gmail.com</span></p></div>
+<div class="header-bg text-white p-5 pb-8 text-center" id="headerPrint"><img src="profile.jpg" class="w-20 h-20 rounded-full border-4 border-white mx-auto shadow-lg object-cover"><h1 class="urdu text-3xl text-yellow-300 mt-2">والله خير الرازقين</h1><p class="text-sm mt-1 font-semibold">Life Management - Dr Zeeshan Mughal | <span id="cloudStatus">☁️ drzeeshanmughal777@gmail.com</span></p><p id="printDate" class="text-[11px] mt-1 opacity-80"></p></div>
 
-<div class="max-w-4xl mx-auto p-4 -mt-6 space-y-4" id="boxesContainer"></div>
+<div class="max-w-4xl mx-auto p-4 -mt-6 space-y-4 no-print" id="boxesContainer"></div>
 
-<div class="max-w-4xl mx-auto p-4"><div class="bg-white rounded-2xl shadow p-4"><h2 class="font-bold text-lg mb-4">📊 Summer Sheet - Auto Total</h2><div class="overflow-auto rounded-xl border"><table class="w-full text-sm"><thead class="bg-[#0f355e] text-white"><tr><th class="p-3 text-left">Category</th><th class="p-3 text-center">Count</th><th class="p-3 text-right">Total</th></tr></thead><tbody id="summaryBody"></tbody></table></div><div class="grid grid-cols-2 gap-2 mt-4"><button onclick="window.print()" class="bg-blue-100 text-blue-700 py-2.5 rounded-full font-semibold">🖨️ Print</button><button onclick="clearFilter()" class="bg-emerald-100 text-emerald-700 py-2.5 rounded-full font-semibold">👁️ View All / Past Edit</button><button onclick="clearAll()" class="bg-rose-100 text-rose-700 py-2.5 rounded-full font-semibold">🗑️ Clear All</button><button onclick="handleAuthClick()" id="connectBtn" class="bg-indigo-600 text-white py-2.5 rounded-full font-semibold">🔗 Connect Drive</button><button onclick="saveToDrive()" class="bg-blue-600 text-white py-2.5 rounded-full font-semibold">☁️ Backup All</button><button onclick="loadFromDrive()" class="bg-green-600 text-white py-2.5 rounded-full font-semibold">♻️ Restore</button></div><div class="mt-3 text-[10px] bg-gray-50 p-2 rounded"><span id="driveLog">Ready - drzeeshanmughal777@gmail.com - Past dates me edit ke liye date change karke Edit button dabayen</span><br>Date Filter (Past Edit): <input type="date" id="summaryFilterDate" onchange="renderAll()" class="border rounded px-1"> <button onclick="clearFilter()" class="text-indigo-600 ml-2">Show All</button></div></div></div>
+<div class="max-w-4xl mx-auto p-4" id="printArea">
+<div class="bg-white rounded-2xl shadow p-4">
+<h2 class="font-bold text-lg mb-2">📊 Summer Sheet - Auto Total (1 Page Report)</h2>
+<p class="text-[11px] text-gray-500 mb-3 no-print">Yehi page print hoga - 1 page me sari calculation</p>
+<div class="overflow-auto rounded-xl border"><table class="w-full text-sm"><thead class="bg-[#0f355e] text-white"><tr><th class="p-3 text-left">Category</th><th class="p-3 text-center">Count</th><th class="p-3 text-right">Total</th></tr></thead><tbody id="summaryBody"></tbody></table></div>
+
+<div class="grid grid-cols-2 gap-2 mt-4 no-print">
+<button onclick="printSummary()" class="bg-blue-600 text-white py-3 rounded-full font-bold text-sm">🖨️ Print Summary (1 Page Only)</button>
+<button onclick="clearFilter()" class="bg-emerald-100 text-emerald-700 py-2.5 rounded-full font-semibold text-sm">👁️ View All / Past Edit</button>
+<button onclick="clearAll()" class="bg-rose-100 text-rose-700 py-2.5 rounded-full font-semibold text-sm">🗑️ Clear All</button>
+<button onclick="handleAuthClick()" id="connectBtn" class="bg-indigo-600 text-white py-2.5 rounded-full font-semibold text-sm">🔗 Connect Drive</button>
+<button onclick="saveToDrive()" class="bg-blue-100 text-blue-700 py-2.5 rounded-full font-semibold text-sm">☁️ Backup All</button>
+<button onclick="loadFromDrive()" class="bg-green-100 text-green-700 py-2.5 rounded-full font-semibold text-sm">♻️ Restore</button>
+</div>
+
+<div class="mt-3 text-[10px] bg-gray-50 p-2 rounded no-print"><span id="driveLog">Ready - drzeeshanmughal777@gmail.com - Data safe hai, zaya nahi hoga</span><br>Date Filter (Past Edit): <input type="date" id="summaryFilterDate" onchange="renderAll()" class="border rounded px-1"> <button onclick="clearFilter()" class="text-indigo-600 ml-2">Show All</button></div>
+</div>
+</div>
 
 <script>
 const CLIENT_ID="753703657750-o99crfnm2cgsevbeilqrbuo1qlq618nu.apps.googleusercontent.com";
@@ -30,9 +60,15 @@ document.addEventListener('DOMContentLoaded',()=>{
   if(localStorage.getItem('lm_unlocked_v13')==='yes'){
     document.getElementById('lockScreen').style.display='none';
   }
+  document.getElementById('printDate').innerText="Report Date: "+new Date().toLocaleDateString('en-GB')+" | "+new Date().toLocaleTimeString();
   buildBoxes();
   loadLocal();
 });
+
+function printSummary(){
+  document.getElementById('printDate').innerText="Report Date: "+new Date().toLocaleDateString('en-GB')+" | "+new Date().toLocaleTimeString()+" | Dr. Zeeshan Mughal - "+today;
+  window.print();
+}
 
 window.onload=()=>{
   gapi.load('client',async()=>{
@@ -88,6 +124,7 @@ function buildBoxes(){
   `).join('');
 }
 
+// IMPORTANT: Same key as before so data won't be lost
 let data=JSON.parse(localStorage.getItem("life_final_v13")||"{}");
 boxes.forEach(b=>{if(!data[b.k])data[b.k]=[];});
 
@@ -97,7 +134,6 @@ function loadLocal(){renderAll();}
 function addEntry(type){
   const src=document.getElementById('src_'+type);
   const amtEl=document.getElementById('amt_'+type);
-  if(!src||!amtEl){alert("ID error");return;}
   const srcV=src.value.trim();
   const amt=parseInt(amtEl.value.replace(/[^0-9]/g,''))||0;
   const date=document.getElementById('date_'+type).value||today;
@@ -107,36 +143,26 @@ function addEntry(type){
   src.value="";amtEl.value="";
   saveLocal();
 }
-
 function editEntry(type,id){
   const entry=data[type].find(e=>e.id==id);
   if(!entry)return;
   document.getElementById('src_'+type).value=entry.source;
   document.getElementById('amt_'+type).value=entry.amount;
   document.getElementById('date_'+type).value=entry.date;
-  // delete old to allow re-save (edit)
   data[type]=data[type].filter(e=>e.id!=id);
   saveLocal();
   document.getElementById('src_'+type).focus();
-  window.scrollTo({top:document.getElementById('src_'+type).offsetTop-100,behavior:'smooth'});
 }
-
 function deleteEntry(type,id){if(confirm("Delete?")){data[type]=data[type].filter(e=>e.id!=id);saveLocal();}}
-
 function saveBox(type){
-  // Force save and highlight summary
   saveLocal();
   updateLog(`${type} saved - Report added to Summer Sheet ✅`);
-  // Flash summary
-  document.getElementById('summaryBody').parentElement.parentElement.scrollIntoView({behavior:'smooth'});
-  // Visual feedback
   const btn=event.target;
   const orig=btn.innerText;
   btn.innerText="✅ Saved to Summary!";
   btn.className="mt-2 w-full bg-green-600 text-white py-2 rounded-full text-xs font-semibold";
   setTimeout(()=>{btn.innerText=orig;btn.className="mt-2 w-full bg-slate-800 text-white py-2 rounded-full text-xs font-semibold";},1500);
 }
-
 function renderAll(){
   let filter=document.getElementById('summaryFilterDate')?.value||null;
   let totalIncome=0,totalExpense=0,cInc=0,cExp=0;
@@ -146,7 +172,7 @@ function renderAll(){
     let filtered=filter?entries.filter(e=>e.date===filter):entries;
     let listEl=document.getElementById('list_'+k);
     if(listEl){
-      listEl.innerHTML=filtered.map(e=>`<div class="flex justify-between bg-gray-50 p-2 rounded-xl border-l-4 ${k.includes('income')?'border-emerald-500':'border-rose-500'}"><div><div class="font-semibold text-sm">${e.source}</div><div class="text-[11px] text-gray-500">${e.date}</div></div><div class="flex gap-1 items-center"><span class="font-bold text-sm">Rs.${e.amount}</span><button onclick="editEntry('${k}',${e.id})" class="bg-blue-500 text-white w-6 h-6 rounded-full text-xs" title="Edit past date">✏️</button><button onclick="deleteEntry('${k}',${e.id})" class="bg-red-500 text-white w-6 h-6 rounded-full text-xs">x</button></div></div>`).join('')||`<p class="text-xs text-center text-gray-400 py-2">No data - ${filter?'Is date me koi data nahi - Show All dabayen':'Add karen'}</p>`;
+      listEl.innerHTML=filtered.map(e=>`<div class="flex justify-between bg-gray-50 p-2 rounded-xl border-l-4 ${k.includes('income')?'border-emerald-500':'border-rose-500'}"><div><div class="font-semibold text-sm">${e.source}</div><div class="text-[11px] text-gray-500">${e.date}</div></div><div class="flex gap-1 items-center"><span class="font-bold text-sm">Rs.${e.amount}</span><button onclick="editEntry('${k}',${e.id})" class="bg-blue-500 text-white w-6 h-6 rounded-full text-xs">✏️</button><button onclick="deleteEntry('${k}',${e.id})" class="bg-red-500 text-white w-6 h-6 rounded-full text-xs">x</button></div></div>`).join('')||`<p class="text-xs text-center text-gray-400 py-2">No data</p>`;
     }
     let sum=filtered.reduce((s,e)=>s+e.amount,0);
     let totalEl=document.getElementById('total_'+k);
@@ -162,7 +188,7 @@ function renderAll(){
   document.getElementById('summaryBody').innerHTML=html;
 }
 function clearFilter(){document.getElementById('summaryFilterDate').value='';renderAll();}
-function clearAll(){if(confirm('Sare data delete kar den?')){boxes.forEach(b=>data[b.k]=[]);saveLocal();}}
-async function saveToDrive(){if(!accessToken){updateLog("Connect Drive first");return;}try{updateLog("Backing up to Drive...");let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});let blob=new Blob([JSON.stringify({data,updated:new Date().toISOString()})],{type:'application/json'});if(list.result.files.length>0){let id=list.result.files[0].id;await fetch(`https://www.googleapis.com/upload/drive/v3/files/${id}?uploadType=media`,{method:'PATCH',headers:{'Authorization':`Bearer ${accessToken}`},body:blob});updateLog("Backup Updated ✅ drzeeshanmughal777@gmail.com");}else{let meta={name:FILE_NAME,mimeType:'application/json'};let form=new FormData();form.append('metadata',new Blob([JSON.stringify(meta)],{type:'application/json'}));form.append('file',blob);await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{'Authorization':`Bearer ${accessToken}`},body:form});updateLog("Backup Created ✅");}}catch(e){updateLog(e.message);}}
+function clearAll(){if(confirm('Sare data delete?')){boxes.forEach(b=>data[b.k]=[]);saveLocal();}}
+async function saveToDrive(){if(!accessToken){updateLog("Connect Drive first");return;}try{updateLog("Backing up...");let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});let blob=new Blob([JSON.stringify({data,updated:new Date().toISOString()})],{type:'application/json'});if(list.result.files.length>0){let id=list.result.files[0].id;await fetch(`https://www.googleapis.com/upload/drive/v3/files/${id}?uploadType=media`,{method:'PATCH',headers:{'Authorization':`Bearer ${accessToken}`},body:blob});updateLog("Backup Updated ✅");}else{let meta={name:FILE_NAME,mimeType:'application/json'};let form=new FormData();form.append('metadata',new Blob([JSON.stringify(meta)],{type:'application/json'}));form.append('file',blob);await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{'Authorization':`Bearer ${accessToken}`},body:form});updateLog("Created ✅");}}catch(e){updateLog(e.message);}}
 async function loadFromDrive(){if(!accessToken){alert("Connect Drive");return;}try{let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});if(list.result.files.length==0){updateLog("No backup");return;}let id=list.result.files[0].id;let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?alt=media`,{headers:{'Authorization':`Bearer ${accessToken}`}});let j=await res.json();if(j.data){data=j.data;boxes.forEach(b=>{if(!data[b.k])data[b.k]=[];});localStorage.setItem("life_final_v13",JSON.stringify(data));renderAll();updateLog("Restored ✅");}}catch(e){updateLog(e.message);}}
 </script></body></html>
