@@ -1,41 +1,109 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Life Management - Dr Zeeshan</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Life Management - Dr Zeeshan Mughal</title>
 <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://apis.google.com/js/api.js" async defer></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Outfit',sans-serif}
 body{background:#f4f6fb}
 header{background:linear-gradient(135deg,#0f4c75,#1b262c);color:#fff;padding:18px;text-align:center;position:sticky;top:0;z-index:99}
 .logo-wrap{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap}
-.logo{width:80px;height:80px;border-radius:50%;border:3px solid #fff;object-fit:cover}
+.logo{width:80px;height:80px;border-radius:50%;border:3px solid #fff;object-fit:cover;background:#fff}
 .ayat{font-family:'Amiri',serif;font-size:36px;color:#ffd700}
 .container{max-width:1240px;margin:18px auto;padding:10px;display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:14px}
 .card{background:#fff;border-radius:18px;padding:14px;box-shadow:0 8px 20px #0001;border-top:5px solid var(--c)}
 .card h3{display:flex;justify-content:space-between;margin-bottom:10px;color:#0f4c75}
-.inputs{display:grid;grid-template-columns:1fr 120px 50px;gap:6px}
+.inputs{display:grid;grid-template-columns:1fr 110px 44px;gap:6px}
 input{padding:11px;border-radius:10px;border:2px solid #e2e8f0;outline:none}
 .btn-add{width:100%;margin-top:8px;background:linear-gradient(90deg,#1e90ff,#7c3aed);color:#fff;border:none;padding:10px;border-radius:10px;font-weight:800;cursor:pointer}
 .item{display:flex;justify-content:space-between;background:#f8fafc;padding:8px 10px;border-radius:10px;margin:5px 0;border-left:4px solid var(--c);font-size:14px}
 .total{margin-top:8px;background:#f1f5f9;padding:10px;border-radius:10px;font-weight:800;display:flex;justify-content:space-between}
 .summary{grid-column:1/-1;background:#fff;border-radius:18px;padding:18px;box-shadow:0 8px 20px #0001}
-table{width:100%;border-collapse:collapse;margin-top:10px}th,td{border:1px solid #ddd;padding:8px;text-align:center;font-size:14px}th{background:#0f4c75;color:#fff}
-@media print{.no-print{display:none}}
+table{width:100%;border-collapse:collapse;margin-top:10px}th,td{border:1px solid #ddd;padding:8px;text-align:center;font-size:13px}th{background:#0f4c75;color:#fff}
+.drive-box{position:fixed;bottom:18px;right:18px;z-index:999;display:flex;flex-direction:column;gap:8px}
+.drive-box button{padding:11px 16px;border-radius:30px;border:none;font-weight:800;box-shadow:0 5px 15px #0003;cursor:pointer;color:#fff}
 @media(max-width:600px){.container{grid-template-columns:1fr}}
-</style></head><body>
-<header class="no-print"><div class="logo-wrap">
-<img class="logo" src="logo.jpg"><div><div class="ayat">وَاللّٰهُ خَيْرُ الرَّازِقِيْنَ</div><div>Life Management - Dr Zeeshan Mughal</div></div></div></header>
+</style>
+</head>
+<body>
+<header><div class="logo-wrap">
+<img class="logo" src="logo.jpg" onerror="this.src='https://via.placeholder.com/80'">
+<div><div class="ayat">وَاللّٰهُ خَيْرُ الرَّازِقِيْنَ</div><div>Life Management - Dr Zeeshan Mughal | ☁️ Cloud Ready</div></div></div></header>
+
 <div class="container" id="boxes"></div>
 <div class="container"><div class="summary">
-<h2>📊 Summer Sheet - Auto Total Heading Wise</h2>
+<h2>📊 Summer Sheet - Auto Total</h2>
 <table id="sumTable"><thead><tr><th>Category</th><th>Entries</th><th>Total Rs.</th></tr></thead><tbody></tbody>
-<tfoot><tr style="font-weight:800;background:#eef"><td>NET SAVING</td><td id="fCount"></td><td id="fTotal"></td></tr></tfoot></table>
-<div class="no-print" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
-<button onclick="window.print()" style="padding:10px 16px;background:#1e90ff;color:#fff;border:none;border-radius:8px">🖨️ Print</button>
-<button onclick="toggleView()" style="padding:10px 16px;background:#10b981;color:#fff;border:none;border-radius:8px">✏️ View / Edit</button>
-<button onclick="exportCSV()" style="padding:10px 16px;background:#f59e0b;color:#fff;border:none;border-radius:8px">📥 Excel</button>
-<button onclick="clearAll()" style="padding:10px 16px;background:#ef4444;color:#fff;border:none;border-radius:8px">Clear</button>
-<span style="margin-left:auto;font-size:12px;color:#64748b">Google Drive Sync: Ready (Client ID ka intezar)</span>
-</div><div id="detail"></div></div></div>
+<tfoot><tr style="font-weight:800;background:#eef"><td>NET SAVING</td><td id="fCount">0</td><td id="fTotal">0</td></tr></tfoot></table>
+<div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap">
+<button onclick="window.print()" style="padding:8px 14px;background:#1e90ff;color:#fff;border:none;border-radius:8px">🖨️ Print</button>
+<button onclick="toggleView()" style="padding:8px 14px;background:#10b981;color:#fff;border:none;border-radius:8px">✏️ View / Edit</button>
+<button onclick="exportCSV()" style="padding:8px 14px;background:#f59e0b;color:#fff;border:none;border-radius:8px">📥 Excel</button>
+<button onclick="clearAll()" style="padding:8px 14px;background:#ef4444;color:#fff;border:none;border-radius:8px">Clear All</button>
+<span id="driveStatus" style="margin-left:auto;font-size:12px;color:#0f4c75;font-weight:700">Drive: Not Connected</span>
+</div><div id="detail" style="margin-top:12px"></div>
+</div></div>
+
+<div class="drive-box">
+<button id="authBtn" onclick="handleAuth()" style="background:#4285f4">🔗 Connect Google Drive</button>
+<button onclick="backupToDrive()" style="background:#0f4c75">☁️ Backup to Drive</button>
+<button onclick="restoreFromDrive()" style="background:#10b981">♻️ Restore from Drive</button>
+</div>
+
 <script>
+// === DRIVE CONFIG ===
+const CLIENT_ID = '147036397280-s41270833u19hh3p67c2u1jo0brpq9us.apps.googleusercontent.com';
+const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+let tokenClient, accessToken = localStorage.getItem('drive_token') || null;
+
+function gapiInit(){ gapi.load('client', async()=>{ await gapi.client.init({discoveryDocs:["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"]}); if(accessToken){ gapi.client.setToken({access_token:accessToken}); document.getElementById('driveStatus').innerText='Drive: Connected ✅'; document.getElementById('authBtn').innerText='✅ Connected'; } }); }
+window.addEventListener('load', ()=>{ setTimeout(gapiInit, 1000); });
+
+function initToken(){
+ tokenClient = google.accounts.oauth2.initTokenClient({
+  client_id: CLIENT_ID, scope: SCOPES,
+  callback: (resp)=>{
+   accessToken=resp.access_token;
+   localStorage.setItem('drive_token', accessToken);
+   gapi.client.setToken({access_token:accessToken});
+   document.getElementById('driveStatus').innerText='Drive: Connected ✅ '+new Date().toLocaleTimeString();
+   document.getElementById('authBtn').innerText='✅ Connected'; document.getElementById('authBtn').style.background='#10b981';
+  }
+ });
+}
+function handleAuth(){ if(!tokenClient) initToken(); tokenClient.requestAccessToken({prompt:''}); }
+
+async function backupToDrive(){
+ if(!accessToken){ alert('Pehle Connect Google Drive dabayen'); handleAuth(); return; }
+ let data = localStorage.getItem('life_db') || '{}';
+ let fileName = 'Life-Management-Backup-'+new Date().toISOString().slice(0,10)+'.json';
+ let boundary='-------314159265358979323846'; let delimiter="\r\n--"+boundary+"\r\n"; let close_delim="\r\n--"+boundary+"--";
+ let metadata={'name':fileName,'mimeType':'application/json'};
+ let multipart = delimiter+'Content-Type: application/json\r\n\r\n'+JSON.stringify(metadata)+delimiter+'Content-Type: application/json\r\n\r\n'+data+close_delim;
+ try{
+  let res = await gapi.client.request({path:'https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body:multipart});
+  alert('✅ Backup Ho Gaya Drive Par!\nFile: '+fileName); document.getElementById('driveStatus').innerText='Last Backup: '+new Date().toLocaleString()+' ✅';
+  localStorage.setItem('last_drive_id', res.result.id);
+ }catch(e){ alert('Error: '+e.result?.error?.message || e.message); }
+}
+async function restoreFromDrive(){
+ if(!accessToken){ alert('Pehle Connect karen'); handleAuth(); return; }
+ try{
+  let list = await gapi.client.drive.files.list({q:"name contains 'Life-Management-Backup'", orderBy:"createdTime desc", pageSize:1, fields:"files(id,name,createdTime)"});
+  if(!list.result.files.length) return alert('Drive par backup nahi mila');
+  let fileId=list.result.files[0].id;
+  let file = await gapi.client.drive.files.get({fileId:fileId, alt:'media'});
+  if(confirm('Restore karen? File: '+list.result.files[0].name+'\nDate: '+list.result.files[0].createdTime)){
+   localStorage.setItem('life_db', file.body); location.reload();
+  }
+ }catch(e){ alert('Restore Error: '+e.message); }
+}
+
+// === APP LOGIC ===
 const cats=[
 {id:'daily_income',t:'1. Daily Income',c:'#10b981',f1:'Source',f2:'Income'},
 {id:'monthly_income',t:'2. Monthly Income',c:'#059669',f1:'Source',f2:'Income'},
@@ -48,19 +116,22 @@ let db=JSON.parse(localStorage.getItem('life_db')||'{}'); cats.forEach(x=>{if(!d
 function save(){localStorage.setItem('life_db',JSON.stringify(db));render();}
 function renderBoxes(){document.getElementById('boxes').innerHTML=cats.map(x=>`
 <div class="card" style="--c:${x.c}"><h3><span>${x.t}</span><span style="background:${x.c};color:#fff;padding:3px 10px;border-radius:20px;font-size:12px" id="c_${x.id}">0</span></h3>
-<div class="inputs"><input id="a_${x.id}" placeholder="${x.f1} (Urdu/English)"><input id="b_${x.id}" type="number" placeholder="${x.f2}"><button onclick="add('${x.id}')" style="background:${x.c};color:#fff;border:none;border-radius:10px;font-weight:800">+</button></div>
+<div class="inputs"><input id="a_${x.id}" placeholder="${x.f1}"><input id="b_${x.id}" type="number" placeholder="${x.f2}"><button onclick="add('${x.id}')" style="background:${x.c};color:#fff;border:none;border-radius:10px;font-weight:800">+</button></div>
 <div id="l_${x.id}"></div><div class="total"><span>Total</span><span id="t_${x.id}">0</span></div></div>`).join('');}
 function add(id){let a=document.getElementById('a_'+id).value.trim();let b=parseFloat(document.getElementById('b_'+id).value);if(!a||isNaN(b))return alert('Dono fields likhen');db[id].unshift({i:Date.now(),s:a,v:b,d:new Date().toLocaleDateString()});document.getElementById('a_'+id).value='';document.getElementById('b_'+id).value='';save();}
 function del(cat,i){db[cat]=db[cat].filter(o=>o.i!==i);save();}
-function render(){let inc=0,exp=0,tot=0,tb='';let det='';cats.forEach(x=>{let list=db[x.id];let sum=list.reduce((a,b)=>a+b.v,0);tot+=list.length;if(x.id.includes('income'))inc+=sum;else exp+=sum;
-document.getElementById('c_'+x.id).innerText=list.length;document.getElementById('t_'+x.id).innerText='Rs. '+sum.toLocaleString();
-document.getElementById('l_'+x.id).innerHTML=list.map(o=>`<div class="item"><span><b>${o.s}</b><br><small>${o.d}</small></span><span>Rs.${o.v} <button onclick="del('${x.id}',${o.i})" style="background:red;color:#fff;border:none;padding:3px 7px;border-radius:6px;margin-left:4px">X</button></span></div>`).join('')||'<p style="color:#aaa;text-align:center;margin:8px;font-size:13px">No data</p>';
+function render(){let inc=0,exp=0,tot=0,tb='',det='';cats.forEach(x=>{let list=db[x.id];let sum=list.reduce((a,b)=>a+b.v,0);tot+=list.length;if(x.id.includes('income'))inc+=sum;else exp+=sum;
+let cEl=document.getElementById('c_'+x.id); if(cEl) cEl.innerText=list.length;
+let tEl=document.getElementById('t_'+x.id); if(tEl) tEl.innerText='Rs. '+sum.toLocaleString();
+let lEl=document.getElementById('l_'+x.id); if(lEl) lEl.innerHTML=list.map(o=>`<div class="item"><span><b>${o.s}</b><br><small>${o.d}</small></span><span>Rs.${o.v} <button onclick="del('${x.id}',${o.i})" style="background:red;color:#fff;border:none;padding:3px 7px;border-radius:6px;margin-left:4px">X</button></span></div>`).join('')||'<p style="color:#aaa;text-align:center;margin:8px;font-size:13px">No data</p>';
 tb+=`<tr><td>${x.t}</td><td>${list.length}</td><td>Rs. ${sum.toLocaleString()}</td></tr>`;
-det+=`<h4 style="margin:12px 0 4px;color:${x.c}">${x.t}</h4><table><tr><th>${x.f1}</th><th>${x.f2}</th><th>Date</th><th>Edit</th></tr>${list.map(o=>`<tr><td contenteditable onblur="edit('${x.id}',${o.i},'s',this.innerText)">${o.s}</td><td contenteditable onblur="edit('${x.id}',${o.i},'v',this.innerText)">${o.v}</td><td>${o.d}</td><td><button onclick="del('${x.id}',${o.i})" style="background:#ef4444;color:#fff;border:none;padding:4px 8px;border-radius:6px">Delete</button></td></tr>`).join('')}</table>`;
-});document.querySelector('#sumTable tbody').innerHTML=tb;document.getElementById('fCount').innerText=tot;let net=inc-exp;document.getElementById('fTotal').innerText='Rs. '+net.toLocaleString()+(net>=0?' Saving':' Loss');window._det=det;}
+det+=`<h4 style="margin:12px 0 4px;color:${x.c}">${x.t}</h4><table><tr><th>${x.f1}</th><th>${x.f2}</th><th>Date</th><th>Action</th></tr>${list.map(o=>`<tr><td contenteditable onblur="edit('${x.id}',${o.i},'s',this.innerText)">${o.s}</td><td contenteditable onblur="edit('${x.id}',${o.i},'v',this.innerText)">${o.v}</td><td>${o.d}</td><td><button onclick="del('${x.id}',${o.i})" style="background:#ef4444;color:#fff;border:none;padding:4px 8px;border-radius:6px">Delete</button></td></tr>`).join('')}</table>`;
+});let tbody=document.querySelector('#sumTable tbody'); if(tbody) tbody.innerHTML=tb; document.getElementById('fCount').innerText=tot; let net=inc-exp; document.getElementById('fTotal').innerText='Rs. '+net.toLocaleString()+(net>=0?' Saving':' Loss'); window._det=det;}
 function edit(cat,i,k,v){let o=db[cat].find(x=>x.i===i);if(!o)return;if(k==='v')o.v=parseFloat(v.replace(/[^0-9]/g,''))||0;else o.s=v;save();}
 function toggleView(){let d=document.getElementById('detail');d.innerHTML=d.innerHTML?'':window._det;}
 function clearAll(){if(confirm('Sab delete karna hai?')){localStorage.removeItem('life_db');db={};cats.forEach(x=>db[x.id]=[]);save();}}
 function exportCSV(){let csv='Category,Source/Item,Amount,Date\n';cats.forEach(x=>db[x.id].forEach(o=>csv+=`"${x.t}","${o.s}",${o.v},"${o.d}"\n`));let b=new Blob([csv],{type:'text/csv'});let u=URL.createObjectURL(b);let a=document.createElement('a');a.href=u;a.download='Life-Management.csv';a.click();}
 renderBoxes();render();
-</script></body></html>
+</script>
+</body>
+</html>
