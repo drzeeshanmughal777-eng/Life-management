@@ -1,72 +1,64 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Life Management - Dr Zeeshan</title><script src="https://cdn.tailwindcss.com"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="https://apis.google.com/js/api.js" async defer></script><link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet"><style>.urdu{font-family:'Noto Nastaliq Urdu',serif}body{font-family:'Outfit',sans-serif;background:#f1f5f9}.header-bg{background:linear-gradient(135deg,#0f2b46 0%,#1a4a7a 100%)}</style></head><body>
 
-<!-- PASSWORD - FIXED -->
 <div id="lockScreen" style="position:fixed;inset:0;z-index:9999;background:#0f172a;display:flex;align-items:center;justify-content:center;padding:24px;">
-<div style="background:white;border-radius:24px;padding:32px;width:100%;max-width:340px;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.3);">
-<img src="profile.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Dr+Zeeshan&background=0f355e&color=fff'" style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:block;object-fit:cover;border:4px solid #e0e7ff;">
+<div style="background:white;border-radius:24px;padding:32px;width:100%;max-width:340px;text-align:center;">
+<img src="profile.jpg" style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:block;object-fit:cover;border:4px solid #e0e7ff;">
 <h2 style="font-weight:bold;font-size:20px;">Life Management</h2><p style="font-size:12px;color:#64748b;margin-bottom:16px;">Dr. Zeeshan Mughal</p>
 <input id="passInput" type="password" placeholder="Enter Password" style="width:100%;border:1px solid #cbd5e1;border-radius:9999px;padding:12px 16px;text-align:center;outline:none;">
 <button onclick="checkPass()" style="margin-top:12px;width:100%;background:#4f46e5;color:white;padding:12px;border-radius:9999px;font-weight:600;border:none;cursor:pointer;">Unlock 🔓</button>
-<p id="passError" style="color:#ef4444;font-size:12px;margin-top:8px;display:none;">Wrong password - try Zee</p>
+<p id="passError" style="color:#ef4444;font-size:12px;margin-top:8px;display:none;">Wrong password</p>
 </div></div>
 
-<div class="header-bg text-white p-5 pb-10 text-center"><img src="profile.jpg" onerror="this.src='https://ui-avatars.com/api/?name=Dr+Zeeshan&background=0f355e&color=fff'" class="w-20 h-20 rounded-full border-4 border-white mx-auto shadow-lg object-cover"><h1 class="urdu text-3xl text-yellow-300 mt-2">والله خير الرازقين</h1><p class="text-sm mt-1 font-semibold">Life Management - Dr Zeeshan Mughal | <span id="cloudStatus">☁️ drzeeshanmughal777@gmail.com</span></p></div>
+<div class="header-bg text-white p-5 pb-10 text-center"><img src="profile.jpg" class="w-20 h-20 rounded-full border-4 border-white mx-auto shadow-lg object-cover"><h1 class="urdu text-3xl text-yellow-300 mt-2">والله خير الرازقين</h1><p class="text-sm mt-1 font-semibold">Life Management - Dr Zeeshan Mughal | <span id="cloudStatus">☁️ drzeeshanmughal777@gmail.com</span></p></div>
 
 <div class="max-w-4xl mx-auto p-4 -mt-6 space-y-4">
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-emerald-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">1. Daily Income</h2><input type="date" id="date_daily_income" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="source_daily_income" placeholder="Source" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm outline-none"><input id="amount_daily_income" type="number" placeholder="Income" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('daily_income')" class="bg-emerald-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_daily_income" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_daily_income">Rs. 0</span></div></div>
+<div class="bg-white rounded-2xl shadow border-t-4 border-emerald-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">1. Daily Income</h2><input type="date" id="date_daily_income" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_daily_income" placeholder="Source" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_daily_income" type="text" placeholder="Income" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addDailyIncome()" class="bg-emerald-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_daily_income" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_daily_income">Rs. 0</span></div></div>
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-emerald-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">2. Monthly Income</h2><input type="date" id="date_monthly_income" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="source_monthly_income" placeholder="Source" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amount_monthly_income" type="number" placeholder="Income" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('monthly_income')" class="bg-emerald-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_monthly_income" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_monthly_income">Rs. 0</span></div></div>
+<div class="bg-white rounded-2xl shadow border-t-4 border-emerald-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">2. Monthly Income</h2><input type="date" id="date_monthly_income" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_monthly_income" placeholder="Source" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_monthly_income" type="text" placeholder="Income" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('monthly_income')" class="bg-emerald-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_monthly_income" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_monthly_income">Rs. 0</span></div></div>
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-rose-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">3. Daily Home Expenses</h2><input type="date" id="date_home" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="source_home" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amount_home" type="number" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('home')" class="bg-rose-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_home" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_home">Rs. 0</span></div></div>
+<div class="bg-white rounded-2xl shadow border-t-4 border-rose-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">3. Daily Home Expenses</h2><input type="date" id="date_home" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_home" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_home" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('home')" class="bg-rose-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_home" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_home">Rs. 0</span></div></div>
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-orange-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">4. Daily Children Expenses</h2><input type="date" id="date_children" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="source_children" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amount_children" type="number" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('children')" class="bg-orange-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_children" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_children">Rs. 0</span></div></div>
+<div class="bg-white rounded-2xl shadow border-t-4 border-orange-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">4. Daily Children Expenses</h2><input type="date" id="date_children" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_children" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_children" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('children')" class="bg-orange-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_children" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_children">Rs. 0</span></div></div>
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-blue-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">5. Transportation Expenses</h2><input type="date" id="date_transport" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="source_transport" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amount_transport" type="number" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('transport')" class="bg-blue-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_transport" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_transport">Rs. 0</span></div></div>
+<div class="bg-white rounded-2xl shadow border-t-4 border-blue-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">5. Transportation Expenses</h2><input type="date" id="date_transport" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_transport" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_transport" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('transport')" class="bg-blue-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_transport" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_transport">Rs. 0</span></div></div>
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-cyan-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">6. Outing</h2><input type="date" id="date_outing" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="source_outing" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amount_outing" type="number" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('outing')" class="bg-cyan-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_outing" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_outing">Rs. 0</span></div></div>
+<div class="bg-white rounded-2xl shadow border-t-4 border-cyan-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">6. Outing</h2><input type="date" id="date_outing" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_outing" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_outing" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('outing')" class="bg-cyan-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_outing" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_outing">Rs. 0</span></div></div>
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-amber-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">7. Parents</h2><input type="date" id="date_parents" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="source_parents" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amount_parents" type="number" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('parents')" class="bg-amber-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_parents" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_parents">Rs. 0</span></div></div>
+<div class="bg-white rounded-2xl shadow border-t-4 border-amber-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">7. Parents</h2><input type="date" id="date_parents" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_parents" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_parents" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addParents()" class="bg-amber-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_parents" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_parents">Rs. 0</span></div></div>
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-teal-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">8. Fi Sabil Allah</h2><input type="date" id="date_fisabil" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="source_fisabil" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amount_fisabil" type="number" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('fisabil')" class="bg-teal-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_fisabil" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_fisabil">Rs. 0</span></div></div>
+<div class="bg-white rounded-2xl shadow border-t-4 border-teal-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">8. Fi Sabil Allah</h2><input type="date" id="date_fisabil" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_fisabil" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_fisabil" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('fisabil')" class="bg-teal-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_fisabil" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_fisabil">Rs. 0</span></div></div>
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-violet-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">9. Sadia Clinic</h2><input type="date" id="date_sadia" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="source_sadia" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amount_sadia" type="number" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('sadia')" class="bg-violet-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_sadia" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_sadia">Rs. 0</span></div></div>
+<div class="bg-white rounded-2xl shadow border-t-4 border-violet-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">9. Sadia Clinic</h2><input type="date" id="date_sadia" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_sadia" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_sadia" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('sadia')" class="bg-violet-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_sadia" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_sadia">Rs. 0</span></div></div>
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-indigo-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">10. Education</h2><input type="date" id="date_education" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="source_education" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amount_education" type="number" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('education')" class="bg-indigo-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_education" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_education">Rs. 0</span></div></div>
+<div class="bg-white rounded-2xl shadow border-t-4 border-indigo-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">10. Education</h2><input type="date" id="date_education" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_education" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_education" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('education')" class="bg-indigo-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_education" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_education">Rs. 0</span></div></div>
 
-<div class="bg-white rounded-2xl shadow p-4"><h2 class="font-bold text-lg mb-4">📊 Summer Sheet - Auto Total</h2><div class="overflow-auto rounded-xl border"><table class="w-full text-sm"><thead class="bg-[#0f355e] text-white"><tr><th class="p-3 text-left">Category</th><th class="p-3 text-center">Count</th><th class="p-3 text-right">Total</th></tr></thead><tbody id="summaryBody"></tbody></table></div><div class="grid grid-cols-2 gap-2 mt-4"><button onclick="window.print()" class="bg-blue-100 text-blue-700 py-2.5 rounded-full font-semibold">🖨️ Print</button><button onclick="clearFilter()" class="bg-emerald-100 text-emerald-700 py-2.5 rounded-full font-semibold">👁️ View All</button><button onclick="clearAll()" class="bg-rose-100 text-rose-700 py-2.5 rounded-full font-semibold">🗑️ Clear All</button><button onclick="handleAuthClick()" id="connectBtn" class="bg-indigo-600 text-white py-2.5 rounded-full font-semibold">🔗 Connect Drive</button><button onclick="saveToDrive()" class="bg-blue-600 text-white py-2.5 rounded-full font-semibold">☁️ Backup</button><button onclick="loadFromDrive()" class="bg-green-600 text-white py-2.5 rounded-full font-semibold">♻️ Restore</button></div><div class="mt-3 text-[10px] bg-gray-50 p-2 rounded"><span id="driveLog">Ready - drzeeshanmughal777@gmail.com - ID: 753703...</span><br>Date Filter: <input type="date" id="summaryFilterDate" onchange="renderAll()" class="border rounded px-1"></div></div></div>
+<div class="bg-white rounded-2xl shadow p-4"><h2 class="font-bold text-lg mb-4">📊 Summer Sheet - Auto Total</h2><div class="overflow-auto rounded-xl border"><table class="w-full text-sm"><thead class="bg-[#0f355e] text-white"><tr><th class="p-3 text-left">Category</th><th class="p-3 text-center">Count</th><th class="p-3 text-right">Total</th></tr></thead><tbody id="summaryBody"></tbody></table></div><div class="grid grid-cols-2 gap-2 mt-4"><button onclick="window.print()" class="bg-blue-100 text-blue-700 py-2.5 rounded-full font-semibold">🖨️ Print</button><button onclick="clearFilter()" class="bg-emerald-100 text-emerald-700 py-2.5 rounded-full font-semibold">👁️ View All</button><button onclick="clearAll()" class="bg-rose-100 text-rose-700 py-2.5 rounded-full font-semibold">🗑️ Clear All</button><button onclick="handleAuthClick()" id="connectBtn" class="bg-indigo-600 text-white py-2.5 rounded-full font-semibold">🔗 Connect Drive</button><button onclick="saveToDrive()" class="bg-blue-600 text-white py-2.5 rounded-full font-semibold">☁️ Backup</button><button onclick="loadFromDrive()" class="bg-green-600 text-white py-2.5 rounded-full font-semibold">♻️ Restore</button></div><div class="mt-3 text-[10px] bg-gray-50 p-2 rounded"><span id="driveLog">Ready - drzeeshanmughal777@gmail.com</span><br>Date Filter: <input type="date" id="summaryFilterDate" onchange="renderAll()" class="border rounded px-1"></div></div></div>
 
 <script>
 const CLIENT_ID="753703657750-o99crfnm2cgsevbeilqrbuo1qlq618nu.apps.googleusercontent.com";
 const SCOPES="https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.appdata";
-const FILE_NAME="life_management_final_v11.json";
+const FILE_NAME="life_management_final_v12.json";
 const PASSWORD="zee";
 let tokenClient=null,accessToken=null,gapiInited=false,gisInited=false;
 const today=new Date().toISOString().split('T')[0];
 
 function checkPass(){
-  const input=document.getElementById('passInput');
-  const val=input.value.trim().toLowerCase();
-  console.log("Trying password:",val);
-  if(val===PASSWORD){
-    localStorage.setItem('lm_unlocked_v11','yes');
+  const v=document.getElementById('passInput').value.trim().toLowerCase();
+  if(v===PASSWORD){
+    localStorage.setItem('lm_unlocked_v12','yes');
     document.getElementById('lockScreen').style.display='none';
   }else{
     document.getElementById('passError').style.display='block';
-    input.value='';
-    input.focus();
   }
 }
-
 document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('input[type=date]').forEach(e=>e.value=today);
-  if(localStorage.getItem('lm_unlocked_v11')==='yes'){
+  if(localStorage.getItem('lm_unlocked_v12')==='yes'){
     document.getElementById('lockScreen').style.display='none';
   }
-  document.getElementById('passInput').addEventListener('keydown',e=>{
-    if(e.key==='Enter'){ checkPass(); }
-  });
+  document.getElementById('passInput').addEventListener('keydown',e=>{if(e.key==='Enter')checkPass();});
 });
 
 window.onload=()=>{
@@ -75,54 +67,79 @@ window.onload=()=>{
     gapiInited=true;
   });
   setTimeout(()=>{
-    try{
-      tokenClient=google.accounts.oauth2.initTokenClient({
-        client_id:CLIENT_ID,scope:SCOPES,
-        callback:r=>{
-          if(r.error){updateLog("Auth Error: "+r.error);return;}
-          accessToken=r.access_token;
-          localStorage.setItem("drive_token",accessToken);
-          updateDriveUI(true);
-          updateLog("Connected ✅ drzeeshanmughal777@gmail.com");
-          saveToDrive();
-        }
-      });
-      gisInited=true;
-    }catch(e){updateLog("GIS Error: "+e.message);}
-  },1200);
+    tokenClient=google.accounts.oauth2.initTokenClient({
+      client_id:CLIENT_ID,scope:SCOPES,
+      callback:r=>{
+        if(r.error){updateLog(r.error);return;}
+        accessToken=r.access_token;
+        localStorage.setItem("drive_token",accessToken);
+        updateDriveUI(true);
+        saveToDrive();
+      }
+    });
+    gisInited=true;
+  },1000);
   loadLocal();
   const saved=localStorage.getItem("drive_token");
   if(saved){accessToken=saved;updateDriveUI(true);}
 };
 
 function updateLog(m){document.getElementById('driveLog').innerText=new Date().toLocaleTimeString()+" - "+m;}
-function updateDriveUI(c){let b=document.getElementById('connectBtn');if(c){b.innerText="✅ Drive Connected";b.className="bg-green-600 text-white py-2.5 rounded-full font-semibold";document.getElementById('cloudStatus').innerText="☁️ Connected - drzeeshanmughal777@gmail.com";}}
-function handleAuthClick(){if(accessToken){if(confirm("Disconnect Drive?")){accessToken=null;localStorage.removeItem("drive_token");location.reload();}return;}if(!gapiInited||!gisInited){updateLog("Loading Google...");setTimeout(handleAuthClick,1000);return;}tokenClient.requestAccessToken({prompt:'consent'});}
+function updateDriveUI(c){if(c){document.getElementById('connectBtn').innerText="✅ Drive Connected";document.getElementById('cloudStatus').innerText="☁️ Connected - drzeeshanmughal777@gmail.com";}}
+function handleAuthClick(){if(accessToken){if(confirm("Disconnect?")){accessToken=null;localStorage.removeItem("drive_token");location.reload();}return;}if(!gapiInited||!gisInited){updateLog("Loading...");setTimeout(handleAuthClick,1000);return;}tokenClient.requestAccessToken({prompt:'consent'});}
 
-let data=JSON.parse(localStorage.getItem("life_final_v11")||"{}");
+let data=JSON.parse(localStorage.getItem("life_final_v12")||"{}");
 const keys=["daily_income","monthly_income","home","children","transport","outing","parents","fisabil","sadia","education"];
 keys.forEach(k=>{if(!data[k])data[k]=[];});
 
-function saveLocal(){
-  localStorage.setItem("life_final_v11",JSON.stringify(data));
-  renderAll();
-  if(accessToken) saveToDrive();
+function saveLocal(){localStorage.setItem("life_final_v12",JSON.stringify(data));renderAll();if(accessToken)saveToDrive();}
+function loadLocal(){renderAll();}
+
+// SPECIAL FIX FOR DAILY INCOME - separate function
+function addDailyIncome(){
+  const src=document.getElementById('src_daily_income').value.trim();
+  const amt=parseInt(document.getElementById('amt_daily_income').value)||0;
+  const date=document.getElementById('date_daily_income').value||today;
+  if(!src){alert("Source likhen");return;}
+  if(amt<=0){alert("Income likhen");return;}
+  data.daily_income.unshift({id:Date.now(),source:src,amount:amt,date:date});
+  document.getElementById('src_daily_income').value="";
+  document.getElementById('amt_daily_income').value="";
+  saveLocal();
 }
-function loadLocal(){ renderAll(); }
+
+// SPECIAL FIX FOR PARENTS - separate function
+function addParents(){
+  const src=document.getElementById('src_parents').value.trim();
+  const amt=parseInt(document.getElementById('amt_parents').value)||0;
+  const date=document.getElementById('date_parents').value||today;
+  if(!src){alert("Item likhen");return;}
+  if(amt<=0){alert("Expense likhen");return;}
+  data.parents.unshift({id:Date.now(),source:src,amount:amt,date:date});
+  document.getElementById('src_parents').value="";
+  document.getElementById('amt_parents').value="";
+  saveLocal();
+}
 
 function addEntry(type){
-  const srcEl=document.getElementById('source_'+type);
-  const amtEl=document.getElementById('amount_'+type);
-  const src=srcEl.value.trim();
-  const amt=parseInt(amtEl.value)||0;
+  const src=document.getElementById('src_'+type);
+  const amtEl=document.getElementById('amt_'+type);
+  // fallback for old ids
+  const srcAlt=document.getElementById('source_'+type);
+  const amtAlt=document.getElementById('amount_'+type);
+  const sEl=src||srcAlt;
+  const aEl=amtEl||amtAlt;
+  if(!sEl||!aEl){alert("ID error "+type);return;}
+  const srcV=sEl.value.trim();
+  const amt=parseInt(aEl.value)||0;
   const date=document.getElementById('date_'+type).value||today;
-  if(!src){alert("Source / Item likhen");srcEl.focus();return;}
-  if(amt<=0){alert("Amount likhen (0 se zyada)");amtEl.focus();return;}
-  data[type].unshift({id:Date.now(),source:src,amount:amt,date:date});
-  srcEl.value="";amtEl.value="";
+  if(!srcV){alert("Item / Source likhen");return;}
+  if(amt<=0){alert("Amount likhen");return;}
+  data[type].unshift({id:Date.now(),source:srcV,amount:amt,date:date});
+  sEl.value="";aEl.value="";
   saveLocal();
-  console.log("Saved",type,data[type].length);
 }
+
 function deleteEntry(type,id){data[type]=data[type].filter(e=>e.id!=id);saveLocal();}
 
 function renderAll(){
@@ -149,47 +166,8 @@ function renderAll(){
   html+=`<tr class="bg-violet-50 font-bold"><td class="p-3">TOTAL INCOME</td><td class="p-3 text-center">${cInc}</td><td class="p-3 text-right text-emerald-700">Rs. ${totalIncome.toLocaleString()}</td></tr><tr class="bg-rose-50 font-bold"><td class="p-3">TOTAL EXPENSES</td><td class="p-3 text-center">${cExp}</td><td class="p-3 text-right text-rose-700">Rs. ${totalExpense.toLocaleString()}</td></tr><tr class="bg-[#0f355e] text-white font-bold"><td class="p-3">NET BALANCE</td><td class="p-3 text-center">${cInc+cExp}</td><td class="p-3 text-right">Rs. ${(totalIncome-totalExpense).toLocaleString()}</td></tr>`;
   document.getElementById('summaryBody').innerHTML=html;
 }
-
 function clearFilter(){document.getElementById('summaryFilterDate').value='';renderAll();}
-function clearAll(){if(confirm('Sare data delete kar den?')){keys.forEach(k=>data[k]=[]);saveLocal();}}
-
-async function saveToDrive(){
-  if(!accessToken){updateLog("Connect Drive first");return;}
-  try{
-    updateLog("Backing up to drzeeshanmughal777@gmail.com...");
-    let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});
-    let blob=new Blob([JSON.stringify({data,updated:new Date().toISOString(),user:"drzeeshanmughal777@gmail.com"})],{type:'application/json'});
-    if(list.result.files.length>0){
-      let id=list.result.files[0].id;
-      await fetch(`https://www.googleapis.com/upload/drive/v3/files/${id}?uploadType=media`,{method:'PATCH',headers:{'Authorization':`Bearer ${accessToken}`},body:blob});
-      updateLog("Backup Updated ✅");
-    }else{
-      let meta={name:FILE_NAME,mimeType:'application/json'};
-      let form=new FormData();
-      form.append('metadata',new Blob([JSON.stringify(meta)],{type:'application/json'}));
-      form.append('file',blob);
-      await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{'Authorization':`Bearer ${accessToken}`},body:form});
-      updateLog("Backup Created ✅");
-    }
-  }catch(e){updateLog("Error: "+e.message);}
-}
-async function loadFromDrive(){
-  if(!accessToken){alert("Pehle Connect Drive karen");return;}
-  try{
-    updateLog("Restoring...");
-    let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});
-    if(list.result.files.length==0){updateLog("No backup found");return;}
-    let id=list.result.files[0].id;
-    let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?alt=media`,{headers:{'Authorization':`Bearer ${accessToken}`}});
-    let j=await res.json();
-    if(j.data){
-      data=j.data;
-      keys.forEach(k=>{if(!data[k])data[k]=[];});
-      localStorage.setItem("life_final_v11",JSON.stringify(data));
-      renderAll();
-      updateLog("Restored ✅");
-      alert("Restore ho gaya!");
-    }
-  }catch(e){updateLog("Restore Error: "+e.message);}
-}
+function clearAll(){if(confirm('Sare data delete?')){keys.forEach(k=>data[k]=[]);saveLocal();}}
+async function saveToDrive(){if(!accessToken){updateLog("Connect Drive first");return;}try{updateLog("Backing up...");let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});let blob=new Blob([JSON.stringify({data,updated:new Date().toISOString()})],{type:'application/json'});if(list.result.files.length>0){let id=list.result.files[0].id;await fetch(`https://www.googleapis.com/upload/drive/v3/files/${id}?uploadType=media`,{method:'PATCH',headers:{'Authorization':`Bearer ${accessToken}`},body:blob});updateLog("Updated ✅");}else{let meta={name:FILE_NAME,mimeType:'application/json'};let form=new FormData();form.append('metadata',new Blob([JSON.stringify(meta)],{type:'application/json'}));form.append('file',blob);await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{'Authorization':`Bearer ${accessToken}`},body:form});updateLog("Created ✅");}}catch(e){updateLog(e.message);}}
+async function loadFromDrive(){if(!accessToken){alert("Connect Drive");return;}try{let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});if(list.result.files.length==0){updateLog("No backup");return;}let id=list.result.files[0].id;let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?alt=media`,{headers:{'Authorization':`Bearer ${accessToken}`}});let j=await res.json();if(j.data){data=j.data;keys.forEach(k=>{if(!data[k])data[k]=[];});localStorage.setItem("life_final_v12",JSON.stringify(data));renderAll();updateLog("Restored ✅");}}catch(e){updateLog(e.message);}}
 </script></body></html>
