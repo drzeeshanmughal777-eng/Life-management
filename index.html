@@ -1,45 +1,17 @@
-<!DOCTYPE html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Life Management - Dr Zeeshan</title><script src="https://cdn.tailwindcss.com"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="https://apis.google.com/js/api.js" async defer></script><link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet"><style>.urdu{font-family:'Noto Nastaliq Urdu',serif}body{font-family:'Outfit',sans-serif;background:#f1f5f9}.header-bg{background:linear-gradient(135deg,#0f2b46 0%,#1a4a7a 100%)}</style></head><body>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Life Management - Dr Zeeshan</title><script src="https://cdn.tailwindcss.com"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="https://apis.google.com/js/api.js" async defer></script><link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet"><style>.urdu{font-family:'Noto Nastaliq Urdu',serif}body{font-family:'Outfit',sans-serif;background:#f1f5f9}.header-bg{background:linear-gradient(135deg,#0f2b46 0%,#1a4a7a 100%)}</style></head><body>
 
-<div id="lockScreen" style="position:fixed;inset:0;z-index:9999;background:#0f172a;display:flex;align-items:center;justify-content:center;padding:24px;">
-<div style="background:white;border-radius:24px;padding:32px;width:100%;max-width:340px;text-align:center;">
-<img src="profile.jpg" style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:block;object-fit:cover;border:4px solid #e0e7ff;">
-<h2 style="font-weight:bold;font-size:20px;">Life Management</h2><p style="font-size:12px;color:#64748b;margin-bottom:16px;">Dr. Zeeshan Mughal</p>
-<input id="passInput" type="password" placeholder="Enter Password" style="width:100%;border:1px solid #cbd5e1;border-radius:9999px;padding:12px 16px;text-align:center;outline:none;">
-<button onclick="checkPass()" style="margin-top:12px;width:100%;background:#4f46e5;color:white;padding:12px;border-radius:9999px;font-weight:600;border:none;cursor:pointer;">Unlock 🔓</button>
-<p id="passError" style="color:#ef4444;font-size:12px;margin-top:8px;display:none;">Wrong password</p>
-</div></div>
+<div id="lockScreen" style="position:fixed;inset:0;z-index:9999;background:#0f172a;display:flex;align-items:center;justify-content:center;padding:24px;"><div style="background:white;border-radius:24px;padding:32px;width:100%;max-width:340px;text-align:center;"><img src="profile.jpg" style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:block;object-fit:cover;border:4px solid #e0e7ff;"><h2 style="font-weight:bold;font-size:20px;">Life Management</h2><p style="font-size:12px;color:#64748b;margin-bottom:16px;">Dr. Zeeshan Mughal</p><input id="passInput" type="password" placeholder="Enter Password" style="width:100%;border:1px solid #cbd5e1;border-radius:9999px;padding:12px 16px;text-align:center;outline:none;"><button onclick="checkPass()" style="margin-top:12px;width:100%;background:#4f46e5;color:white;padding:12px;border-radius:9999px;font-weight:600;border:none;cursor:pointer;">Unlock 🔓</button><p id="passError" style="color:#ef4444;font-size:12px;margin-top:8px;display:none;">Wrong password</p></div></div>
 
 <div class="header-bg text-white p-5 pb-10 text-center"><img src="profile.jpg" class="w-20 h-20 rounded-full border-4 border-white mx-auto shadow-lg object-cover"><h1 class="urdu text-3xl text-yellow-300 mt-2">والله خير الرازقين</h1><p class="text-sm mt-1 font-semibold">Life Management - Dr Zeeshan Mughal | <span id="cloudStatus">☁️ drzeeshanmughal777@gmail.com</span></p></div>
 
-<div class="max-w-4xl mx-auto p-4 -mt-6 space-y-4">
+<div class="max-w-4xl mx-auto p-4 -mt-6 space-y-4" id="boxesContainer"></div>
 
-<div class="bg-white rounded-2xl shadow border-t-4 border-emerald-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">1. Daily Income</h2><input type="date" id="date_daily_income" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_daily_income" placeholder="Source" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_daily_income" type="text" placeholder="Income" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addDailyIncome()" class="bg-emerald-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_daily_income" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_daily_income">Rs. 0</span></div></div>
-
-<div class="bg-white rounded-2xl shadow border-t-4 border-emerald-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">2. Monthly Income</h2><input type="date" id="date_monthly_income" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_monthly_income" placeholder="Source" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_monthly_income" type="text" placeholder="Income" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('monthly_income')" class="bg-emerald-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_monthly_income" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_monthly_income">Rs. 0</span></div></div>
-
-<div class="bg-white rounded-2xl shadow border-t-4 border-rose-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">3. Daily Home Expenses</h2><input type="date" id="date_home" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_home" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_home" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('home')" class="bg-rose-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_home" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_home">Rs. 0</span></div></div>
-
-<div class="bg-white rounded-2xl shadow border-t-4 border-orange-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">4. Daily Children Expenses</h2><input type="date" id="date_children" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_children" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_children" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('children')" class="bg-orange-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_children" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_children">Rs. 0</span></div></div>
-
-<div class="bg-white rounded-2xl shadow border-t-4 border-blue-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">5. Transportation Expenses</h2><input type="date" id="date_transport" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_transport" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_transport" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('transport')" class="bg-blue-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_transport" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_transport">Rs. 0</span></div></div>
-
-<div class="bg-white rounded-2xl shadow border-t-4 border-cyan-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">6. Outing</h2><input type="date" id="date_outing" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_outing" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_outing" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('outing')" class="bg-cyan-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_outing" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_outing">Rs. 0</span></div></div>
-
-<div class="bg-white rounded-2xl shadow border-t-4 border-amber-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">7. Parents</h2><input type="date" id="date_parents" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_parents" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_parents" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addParents()" class="bg-amber-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_parents" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_parents">Rs. 0</span></div></div>
-
-<div class="bg-white rounded-2xl shadow border-t-4 border-teal-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">8. Fi Sabil Allah</h2><input type="date" id="date_fisabil" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_fisabil" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_fisabil" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('fisabil')" class="bg-teal-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_fisabil" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_fisabil">Rs. 0</span></div></div>
-
-<div class="bg-white rounded-2xl shadow border-t-4 border-violet-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">9. Sadia Clinic</h2><input type="date" id="date_sadia" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_sadia" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_sadia" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('sadia')" class="bg-violet-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_sadia" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_sadia">Rs. 0</span></div></div>
-
-<div class="bg-white rounded-2xl shadow border-t-4 border-indigo-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">10. Education</h2><input type="date" id="date_education" class="text-[11px] border rounded-full px-2 py-1"></div><div class="flex gap-2"><input id="src_education" placeholder="Item" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_education" type="text" placeholder="Expense" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('education')" class="bg-indigo-600 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div><div id="list_education" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_education">Rs. 0</span></div></div>
-
-<div class="bg-white rounded-2xl shadow p-4"><h2 class="font-bold text-lg mb-4">📊 Summer Sheet - Auto Total</h2><div class="overflow-auto rounded-xl border"><table class="w-full text-sm"><thead class="bg-[#0f355e] text-white"><tr><th class="p-3 text-left">Category</th><th class="p-3 text-center">Count</th><th class="p-3 text-right">Total</th></tr></thead><tbody id="summaryBody"></tbody></table></div><div class="grid grid-cols-2 gap-2 mt-4"><button onclick="window.print()" class="bg-blue-100 text-blue-700 py-2.5 rounded-full font-semibold">🖨️ Print</button><button onclick="clearFilter()" class="bg-emerald-100 text-emerald-700 py-2.5 rounded-full font-semibold">👁️ View All</button><button onclick="clearAll()" class="bg-rose-100 text-rose-700 py-2.5 rounded-full font-semibold">🗑️ Clear All</button><button onclick="handleAuthClick()" id="connectBtn" class="bg-indigo-600 text-white py-2.5 rounded-full font-semibold">🔗 Connect Drive</button><button onclick="saveToDrive()" class="bg-blue-600 text-white py-2.5 rounded-full font-semibold">☁️ Backup</button><button onclick="loadFromDrive()" class="bg-green-600 text-white py-2.5 rounded-full font-semibold">♻️ Restore</button></div><div class="mt-3 text-[10px] bg-gray-50 p-2 rounded"><span id="driveLog">Ready - drzeeshanmughal777@gmail.com</span><br>Date Filter: <input type="date" id="summaryFilterDate" onchange="renderAll()" class="border rounded px-1"></div></div></div>
+<div class="max-w-4xl mx-auto p-4"><div class="bg-white rounded-2xl shadow p-4"><h2 class="font-bold text-lg mb-4">📊 Summer Sheet - Auto Total</h2><div class="overflow-auto rounded-xl border"><table class="w-full text-sm"><thead class="bg-[#0f355e] text-white"><tr><th class="p-3 text-left">Category</th><th class="p-3 text-center">Count</th><th class="p-3 text-right">Total</th></tr></thead><tbody id="summaryBody"></tbody></table></div><div class="grid grid-cols-2 gap-2 mt-4"><button onclick="window.print()" class="bg-blue-100 text-blue-700 py-2.5 rounded-full font-semibold">🖨️ Print</button><button onclick="clearFilter()" class="bg-emerald-100 text-emerald-700 py-2.5 rounded-full font-semibold">👁️ View All / Past Edit</button><button onclick="clearAll()" class="bg-rose-100 text-rose-700 py-2.5 rounded-full font-semibold">🗑️ Clear All</button><button onclick="handleAuthClick()" id="connectBtn" class="bg-indigo-600 text-white py-2.5 rounded-full font-semibold">🔗 Connect Drive</button><button onclick="saveToDrive()" class="bg-blue-600 text-white py-2.5 rounded-full font-semibold">☁️ Backup All</button><button onclick="loadFromDrive()" class="bg-green-600 text-white py-2.5 rounded-full font-semibold">♻️ Restore</button></div><div class="mt-3 text-[10px] bg-gray-50 p-2 rounded"><span id="driveLog">Ready - drzeeshanmughal777@gmail.com - Past dates me edit ke liye date change karke Edit button dabayen</span><br>Date Filter (Past Edit): <input type="date" id="summaryFilterDate" onchange="renderAll()" class="border rounded px-1"> <button onclick="clearFilter()" class="text-indigo-600 ml-2">Show All</button></div></div></div>
 
 <script>
 const CLIENT_ID="753703657750-o99crfnm2cgsevbeilqrbuo1qlq618nu.apps.googleusercontent.com";
 const SCOPES="https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.appdata";
-const FILE_NAME="life_management_final_v12.json";
+const FILE_NAME="life_management_final_v13.json";
 const PASSWORD="zee";
 let tokenClient=null,accessToken=null,gapiInited=false,gisInited=false;
 const today=new Date().toISOString().split('T')[0];
@@ -47,18 +19,19 @@ const today=new Date().toISOString().split('T')[0];
 function checkPass(){
   const v=document.getElementById('passInput').value.trim().toLowerCase();
   if(v===PASSWORD){
-    localStorage.setItem('lm_unlocked_v12','yes');
+    localStorage.setItem('lm_unlocked_v13','yes');
     document.getElementById('lockScreen').style.display='none';
   }else{
     document.getElementById('passError').style.display='block';
   }
 }
 document.addEventListener('DOMContentLoaded',()=>{
-  document.querySelectorAll('input[type=date]').forEach(e=>e.value=today);
-  if(localStorage.getItem('lm_unlocked_v12')==='yes'){
+  document.getElementById('passInput').addEventListener('keydown',e=>{if(e.key==='Enter')checkPass();});
+  if(localStorage.getItem('lm_unlocked_v13')==='yes'){
     document.getElementById('lockScreen').style.display='none';
   }
-  document.getElementById('passInput').addEventListener('keydown',e=>{if(e.key==='Enter')checkPass();});
+  buildBoxes();
+  loadLocal();
 });
 
 window.onload=()=>{
@@ -79,7 +52,6 @@ window.onload=()=>{
     });
     gisInited=true;
   },1000);
-  loadLocal();
   const saved=localStorage.getItem("drive_token");
   if(saved){accessToken=saved;updateDriveUI(true);}
 };
@@ -88,86 +60,109 @@ function updateLog(m){document.getElementById('driveLog').innerText=new Date().t
 function updateDriveUI(c){if(c){document.getElementById('connectBtn').innerText="✅ Drive Connected";document.getElementById('cloudStatus').innerText="☁️ Connected - drzeeshanmughal777@gmail.com";}}
 function handleAuthClick(){if(accessToken){if(confirm("Disconnect?")){accessToken=null;localStorage.removeItem("drive_token");location.reload();}return;}if(!gapiInited||!gisInited){updateLog("Loading...");setTimeout(handleAuthClick,1000);return;}tokenClient.requestAccessToken({prompt:'consent'});}
 
-let data=JSON.parse(localStorage.getItem("life_final_v12")||"{}");
-const keys=["daily_income","monthly_income","home","children","transport","outing","parents","fisabil","sadia","education"];
-keys.forEach(k=>{if(!data[k])data[k]=[];});
+const boxes=[
+  {k:"daily_income",t:"1. Daily Income",ph:"Source",ph2:"Income",c:"emerald"},
+  {k:"monthly_income",t:"2. Monthly Income",ph:"Source",ph2:"Income",c:"emerald"},
+  {k:"home",t:"3. Daily Home Expenses",ph:"Item",ph2:"Expense",c:"rose"},
+  {k:"children",t:"4. Daily Children Expenses",ph:"Item",ph2:"Expense",c:"orange"},
+  {k:"transport",t:"5. Transportation Expenses",ph:"Item",ph2:"Expense",c:"blue"},
+  {k:"outing",t:"6. Outing",ph:"Item",ph2:"Expense",c:"cyan"},
+  {k:"parents",t:"7. Parents",ph:"Item",ph2:"Expense",c:"amber"},
+  {k:"fisabil",t:"8. Fi Sabil Allah",ph:"Item",ph2:"Expense",c:"teal"},
+  {k:"sadia",t:"9. Sadia Clinic",ph:"Item",ph2:"Expense",c:"violet"},
+  {k:"education",t:"10. Education",ph:"Item",ph2:"Expense",c:"indigo"},
+  {k:"utility",t:"11. Utility Bills",ph:"Item",ph2:"Expense",c:"red"},
+  {k:"investment",t:"12. Investment",ph:"Item",ph2:"Expense",c:"green"},
+];
 
-function saveLocal(){localStorage.setItem("life_final_v12",JSON.stringify(data));renderAll();if(accessToken)saveToDrive();}
+function buildBoxes(){
+  const container=document.getElementById('boxesContainer');
+  container.innerHTML=boxes.map(b=>`
+    <div class="bg-white rounded-2xl shadow border-t-4 border-${b.c}-500 p-4">
+      <div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">${b.t}</h2><input type="date" id="date_${b.k}" class="text-[11px] border rounded-full px-2 py-1" value="${today}"></div>
+      <div class="flex gap-2"><input id="src_${b.k}" placeholder="${b.ph}" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm outline-none"><input id="amt_${b.k}" type="text" placeholder="${b.ph2}" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('${b.k}')" class="bg-${b.c}-500 text-white px-4 rounded-xl text-xs font-bold">Done ✓</button></div>
+      <div id="list_${b.k}" class="mt-3 space-y-2"></div>
+      <div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_${b.k}">Rs. 0</span></div>
+      <button onclick="saveBox('${b.k}')" class="mt-2 w-full bg-slate-800 text-white py-2 rounded-full text-xs font-semibold">💾 Save ${b.t} Report → Add to Summary</button>
+    </div>
+  `).join('');
+}
+
+let data=JSON.parse(localStorage.getItem("life_final_v13")||"{}");
+boxes.forEach(b=>{if(!data[b.k])data[b.k]=[];});
+
+function saveLocal(){localStorage.setItem("life_final_v13",JSON.stringify(data));renderAll();if(accessToken)saveToDrive();}
 function loadLocal(){renderAll();}
-
-// SPECIAL FIX FOR DAILY INCOME - separate function
-function addDailyIncome(){
-  const src=document.getElementById('src_daily_income').value.trim();
-  const amt=parseInt(document.getElementById('amt_daily_income').value)||0;
-  const date=document.getElementById('date_daily_income').value||today;
-  if(!src){alert("Source likhen");return;}
-  if(amt<=0){alert("Income likhen");return;}
-  data.daily_income.unshift({id:Date.now(),source:src,amount:amt,date:date});
-  document.getElementById('src_daily_income').value="";
-  document.getElementById('amt_daily_income').value="";
-  saveLocal();
-}
-
-// SPECIAL FIX FOR PARENTS - separate function
-function addParents(){
-  const src=document.getElementById('src_parents').value.trim();
-  const amt=parseInt(document.getElementById('amt_parents').value)||0;
-  const date=document.getElementById('date_parents').value||today;
-  if(!src){alert("Item likhen");return;}
-  if(amt<=0){alert("Expense likhen");return;}
-  data.parents.unshift({id:Date.now(),source:src,amount:amt,date:date});
-  document.getElementById('src_parents').value="";
-  document.getElementById('amt_parents').value="";
-  saveLocal();
-}
 
 function addEntry(type){
   const src=document.getElementById('src_'+type);
   const amtEl=document.getElementById('amt_'+type);
-  // fallback for old ids
-  const srcAlt=document.getElementById('source_'+type);
-  const amtAlt=document.getElementById('amount_'+type);
-  const sEl=src||srcAlt;
-  const aEl=amtEl||amtAlt;
-  if(!sEl||!aEl){alert("ID error "+type);return;}
-  const srcV=sEl.value.trim();
-  const amt=parseInt(aEl.value)||0;
+  if(!src||!amtEl){alert("ID error");return;}
+  const srcV=src.value.trim();
+  const amt=parseInt(amtEl.value.replace(/[^0-9]/g,''))||0;
   const date=document.getElementById('date_'+type).value||today;
   if(!srcV){alert("Item / Source likhen");return;}
   if(amt<=0){alert("Amount likhen");return;}
   data[type].unshift({id:Date.now(),source:srcV,amount:amt,date:date});
-  sEl.value="";aEl.value="";
+  src.value="";amtEl.value="";
   saveLocal();
 }
 
-function deleteEntry(type,id){data[type]=data[type].filter(e=>e.id!=id);saveLocal();}
+function editEntry(type,id){
+  const entry=data[type].find(e=>e.id==id);
+  if(!entry)return;
+  document.getElementById('src_'+type).value=entry.source;
+  document.getElementById('amt_'+type).value=entry.amount;
+  document.getElementById('date_'+type).value=entry.date;
+  // delete old to allow re-save (edit)
+  data[type]=data[type].filter(e=>e.id!=id);
+  saveLocal();
+  document.getElementById('src_'+type).focus();
+  window.scrollTo({top:document.getElementById('src_'+type).offsetTop-100,behavior:'smooth'});
+}
+
+function deleteEntry(type,id){if(confirm("Delete?")){data[type]=data[type].filter(e=>e.id!=id);saveLocal();}}
+
+function saveBox(type){
+  // Force save and highlight summary
+  saveLocal();
+  updateLog(`${type} saved - Report added to Summer Sheet ✅`);
+  // Flash summary
+  document.getElementById('summaryBody').parentElement.parentElement.scrollIntoView({behavior:'smooth'});
+  // Visual feedback
+  const btn=event.target;
+  const orig=btn.innerText;
+  btn.innerText="✅ Saved to Summary!";
+  btn.className="mt-2 w-full bg-green-600 text-white py-2 rounded-full text-xs font-semibold";
+  setTimeout(()=>{btn.innerText=orig;btn.className="mt-2 w-full bg-slate-800 text-white py-2 rounded-full text-xs font-semibold";},1500);
+}
 
 function renderAll(){
   let filter=document.getElementById('summaryFilterDate')?.value||null;
   let totalIncome=0,totalExpense=0,cInc=0,cExp=0;
-  keys.forEach(k=>{
+  boxes.forEach(b=>{
+    let k=b.k;
     let entries=data[k]||[];
     let filtered=filter?entries.filter(e=>e.date===filter):entries;
     let listEl=document.getElementById('list_'+k);
     if(listEl){
-      listEl.innerHTML=filtered.map(e=>`<div class="flex justify-between bg-gray-50 p-2 rounded-xl border-l-4 ${k.includes('income')?'border-emerald-500':'border-rose-500'}"><div><div class="font-semibold text-sm">${e.source}</div><div class="text-[11px] text-gray-500">${e.date}</div></div><div class="flex gap-2 items-center"><span class="font-bold text-sm">Rs.${e.amount}</span><button onclick="deleteEntry('${k}',${e.id})" class="bg-red-500 text-white w-6 h-6 rounded-full text-xs">x</button></div></div>`).join('')||`<p class="text-xs text-center text-gray-400 py-2">No data - Add karen</p>`;
+      listEl.innerHTML=filtered.map(e=>`<div class="flex justify-between bg-gray-50 p-2 rounded-xl border-l-4 ${k.includes('income')?'border-emerald-500':'border-rose-500'}"><div><div class="font-semibold text-sm">${e.source}</div><div class="text-[11px] text-gray-500">${e.date}</div></div><div class="flex gap-1 items-center"><span class="font-bold text-sm">Rs.${e.amount}</span><button onclick="editEntry('${k}',${e.id})" class="bg-blue-500 text-white w-6 h-6 rounded-full text-xs" title="Edit past date">✏️</button><button onclick="deleteEntry('${k}',${e.id})" class="bg-red-500 text-white w-6 h-6 rounded-full text-xs">x</button></div></div>`).join('')||`<p class="text-xs text-center text-gray-400 py-2">No data - ${filter?'Is date me koi data nahi - Show All dabayen':'Add karen'}</p>`;
     }
     let sum=filtered.reduce((s,e)=>s+e.amount,0);
     let totalEl=document.getElementById('total_'+k);
     if(totalEl) totalEl.innerText='Rs. '+sum.toLocaleString();
     if(k.includes('income')){totalIncome+=sum;cInc+=filtered.length;}else{totalExpense+=sum;cExp+=filtered.length;}
   });
-  let labels={"daily_income":"1. Daily Income","monthly_income":"2. Monthly Income","home":"3. Daily Home","children":"4. Children","transport":"5. Transport","outing":"6. Outing","parents":"7. Parents","fisabil":"8. Fi Sabil Allah","sadia":"9. Sadia Clinic","education":"10. Education"};
   let html="";
-  keys.forEach(k=>{
-    let entries=data[k]||[];let f=filter?entries.filter(e=>e.date===filter):entries;let s=f.reduce((a,b)=>a+b.amount,0);
-    html+=`<tr><td class="p-3">${labels[k]}</td><td class="p-3 text-center">${f.length}</td><td class="p-3 text-right font-bold ${k.includes('income')?'text-emerald-700':'text-rose-600'}">Rs. ${s.toLocaleString()}</td></tr>`;
+  boxes.forEach(b=>{
+    let entries=data[b.k]||[];let f=filter?entries.filter(e=>e.date===filter):entries;let s=f.reduce((a,b)=>a+b.amount,0);
+    html+=`<tr><td class="p-3">${b.t}</td><td class="p-3 text-center">${f.length}</td><td class="p-3 text-right font-bold ${b.k.includes('income')?'text-emerald-700':'text-rose-600'}">Rs. ${s.toLocaleString()}</td></tr>`;
   });
   html+=`<tr class="bg-violet-50 font-bold"><td class="p-3">TOTAL INCOME</td><td class="p-3 text-center">${cInc}</td><td class="p-3 text-right text-emerald-700">Rs. ${totalIncome.toLocaleString()}</td></tr><tr class="bg-rose-50 font-bold"><td class="p-3">TOTAL EXPENSES</td><td class="p-3 text-center">${cExp}</td><td class="p-3 text-right text-rose-700">Rs. ${totalExpense.toLocaleString()}</td></tr><tr class="bg-[#0f355e] text-white font-bold"><td class="p-3">NET BALANCE</td><td class="p-3 text-center">${cInc+cExp}</td><td class="p-3 text-right">Rs. ${(totalIncome-totalExpense).toLocaleString()}</td></tr>`;
   document.getElementById('summaryBody').innerHTML=html;
 }
 function clearFilter(){document.getElementById('summaryFilterDate').value='';renderAll();}
-function clearAll(){if(confirm('Sare data delete?')){keys.forEach(k=>data[k]=[]);saveLocal();}}
-async function saveToDrive(){if(!accessToken){updateLog("Connect Drive first");return;}try{updateLog("Backing up...");let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});let blob=new Blob([JSON.stringify({data,updated:new Date().toISOString()})],{type:'application/json'});if(list.result.files.length>0){let id=list.result.files[0].id;await fetch(`https://www.googleapis.com/upload/drive/v3/files/${id}?uploadType=media`,{method:'PATCH',headers:{'Authorization':`Bearer ${accessToken}`},body:blob});updateLog("Updated ✅");}else{let meta={name:FILE_NAME,mimeType:'application/json'};let form=new FormData();form.append('metadata',new Blob([JSON.stringify(meta)],{type:'application/json'}));form.append('file',blob);await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{'Authorization':`Bearer ${accessToken}`},body:form});updateLog("Created ✅");}}catch(e){updateLog(e.message);}}
-async function loadFromDrive(){if(!accessToken){alert("Connect Drive");return;}try{let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});if(list.result.files.length==0){updateLog("No backup");return;}let id=list.result.files[0].id;let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?alt=media`,{headers:{'Authorization':`Bearer ${accessToken}`}});let j=await res.json();if(j.data){data=j.data;keys.forEach(k=>{if(!data[k])data[k]=[];});localStorage.setItem("life_final_v12",JSON.stringify(data));renderAll();updateLog("Restored ✅");}}catch(e){updateLog(e.message);}}
+function clearAll(){if(confirm('Sare data delete kar den?')){boxes.forEach(b=>data[b.k]=[]);saveLocal();}}
+async function saveToDrive(){if(!accessToken){updateLog("Connect Drive first");return;}try{updateLog("Backing up to Drive...");let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});let blob=new Blob([JSON.stringify({data,updated:new Date().toISOString()})],{type:'application/json'});if(list.result.files.length>0){let id=list.result.files[0].id;await fetch(`https://www.googleapis.com/upload/drive/v3/files/${id}?uploadType=media`,{method:'PATCH',headers:{'Authorization':`Bearer ${accessToken}`},body:blob});updateLog("Backup Updated ✅ drzeeshanmughal777@gmail.com");}else{let meta={name:FILE_NAME,mimeType:'application/json'};let form=new FormData();form.append('metadata',new Blob([JSON.stringify(meta)],{type:'application/json'}));form.append('file',blob);await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{'Authorization':`Bearer ${accessToken}`},body:form});updateLog("Backup Created ✅");}}catch(e){updateLog(e.message);}}
+async function loadFromDrive(){if(!accessToken){alert("Connect Drive");return;}try{let list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});if(list.result.files.length==0){updateLog("No backup");return;}let id=list.result.files[0].id;let res=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?alt=media`,{headers:{'Authorization':`Bearer ${accessToken}`}});let j=await res.json();if(j.data){data=j.data;boxes.forEach(b=>{if(!data[b.k])data[b.k]=[];});localStorage.setItem("life_final_v13",JSON.stringify(data));renderAll();updateLog("Restored ✅");}}catch(e){updateLog(e.message);}}
 </script></body></html>
