@@ -9,143 +9,102 @@
 <script src="https://apis.google.com/js/api.js" async defer></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700&display=swap');
 body{font-family:'Outfit',sans-serif}
-.glass{background:rgba(255,255,255,0.9);backdrop-filter:blur(10px)}
+.glass{background:rgba(255,255,255,0.92);backdrop-filter:blur(12px)}
 </style>
 </head>
-<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen">
-<div class="max-w-5xl mx-auto p-4 md:p-6">
-<header class="glass rounded-2xl p-4 md:p-6 shadow-lg mb-6 flex flex-col md:flex-row justify-between items-center gap-4">
-<div>
-<h1 class="text-2xl md:text-3xl font-bold text-indigo-800">🚀 Life Management</h1>
-<p class="text-gray-600 text-sm mt-1">Dr. Zeeshan - Your Personal Growth Dashboard</p>
-</div>
+<body class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 min-h-screen pb-10">
+<div class="max-w-5xl mx-auto p-4">
+<header class="glass rounded-2xl p-4 shadow-lg mb-6 flex justify-between items-center">
 <div class="flex items-center gap-3">
-<div id="driveStatus" class="text-xs bg-red-100 text-red-700 px-3 py-1.5 rounded-full"> Drive: Not Connected</div>
-<button id="driveBtn" onclick="handleAuthClick()" class="bg-indigo-600 hover:bg-indigo-700 text-white text-sm px-4 py-2 rounded-full shadow">Connect Drive</button>
+<img src="profile.jpg" onerror="this.src='https://i.pravatar.cc/100?img=12'" alt="Dr Zeeshan" class="w-12 h-12 rounded-full border-2 border-indigo-500 shadow object-cover">
+<div>
+<h1 class="text-xl md:text-2xl font-bold text-indigo-800 flex items-center"><span class="mr-2">🚀</span> Life Management</h1>
+<p class="text-xs text-gray-600">Dr. Zeeshan - Your Personal Growth Dashboard</p>
+</div>
+</div>
+<div class="flex flex-col items-end gap-1">
+<div id="driveStatus" class="text-[11px] bg-green-100 text-green-700 px-3 py-1 rounded-full">Drive: Connected</div>
+<button id="driveBtn" onclick="handleAuthClick()" class="bg-indigo-700 text-white text-xs px-4 py-1.5 rounded-full">Disconnect</button>
 </div>
 </header>
-<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-<div class="glass rounded-xl p-4 text-center shadow"><div class="text-2xl font-bold text-indigo-600" id="statTasks">0</div><div class="text-xs text-gray-600">Tasks Today</div></div>
-<div class="glass rounded-xl p-4 text-center shadow"><div class="text-2xl font-bold text-green-600" id="statDone">0</div><div class="text-xs text-gray-600">Completed</div></div>
-<div class="glass rounded-xl p-4 text-center shadow"><div class="text-2xl font-bold text-purple-600" id="statHabits">0</div><div class="text-xs text-gray-600">Habits</div></div>
-<div class="glass rounded-xl p-4 text-center shadow"><div class="text-2xl font-bold text-pink-600" id="statNotes">0</div><div class="text-xs text-gray-600">Notes</div></div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+<div class="glass rounded-xl p-3 text-center shadow"><div class="text-xl font-bold text-blue-600" id="statTasks">0</div><div class="text-xs">Tasks Today</div><input type="date" id="dateTasks" class="mt-2 text-[10px] border rounded px-1 py-0.5 w-full"></div>
+<div class="glass rounded-xl p-3 text-center shadow"><div class="text-xl font-bold text-green-600" id="statDone">0</div><div class="text-xs">Completed</div><input type="date" id="dateCompleted" class="mt-2 text-[10px] border rounded px-1 py-0.5 w-full"></div>
+<div class="glass rounded-xl p-3 text-center shadow"><div class="text-xl font-bold text-purple-600" id="statHabits">0</div><div class="text-xs">Habits</div><input type="date" id="dateHabits" class="mt-2 text-[10px] border rounded px-1 py-0.5 w-full"></div>
+<div class="glass rounded-xl p-3 text-center shadow"><div class="text-xl font-bold text-pink-600" id="statNotes">0</div><div class="text-xs">Notes</div><input type="date" id="dateNotes" class="mt-2 text-[10px] border rounded px-1 py-0.5 w-full"></div>
 </div>
-<div class="grid md:grid-cols-2 gap-6">
-<div class="glass rounded-2xl p-5 shadow-lg">
-<h2 class="font-semibold text-gray-800 mb-3">Today's Tasks</h2>
-<div class="flex gap-2 mb-3"><input id="taskInput" placeholder="Add new task..." class="flex-1 border rounded-full px-4 py-2 text-sm outline-none"><button onclick="addTask()" class="bg-indigo-600 text-white px-4 py-2 rounded-full text-sm">+</button></div>
-<div id="taskList" class="space-y-2 max-h-72 overflow-y-auto"></div>
+<div class="grid md:grid-cols-2 gap-5">
+<div class="glass rounded-2xl p-4 shadow-lg">
+<div class="flex justify-between items-center mb-3"><h2 class="font-semibold">Today's Tasks</h2><input type="date" id="taskDate" class="text-xs border rounded-full px-2 py-1"></div>
+<div class="flex gap-2 mb-3"><input id="taskInput" placeholder="Add new task..." class="flex-1 border rounded-full px-4 py-2 text-sm"><button onclick="addTask()" class="bg-indigo-600 text-white w-9 h-9 rounded-full">+</button></div>
+<div id="taskList" class="space-y-2 max-h-64 overflow-auto"></div>
 </div>
-<div class="glass rounded-2xl p-5 shadow-lg">
-<h2 class="font-semibold text-gray-800 mb-3">Daily Habits</h2>
-<div class="flex gap-2 mb-3"><input id="habitInput" placeholder="Add habit..." class="flex-1 border rounded-full px-4 py-2 text-sm outline-none"><button onclick="addHabit()" class="bg-purple-600 text-white px-4 py-2 rounded-full text-sm">+</button></div>
-<div id="habitList" class="space-y-2 max-h-72 overflow-y-auto"></div>
+<div class="glass rounded-2xl p-4 shadow-lg">
+<div class="flex justify-between items-center mb-3"><h2 class="font-semibold">Daily Habits</h2><input type="date" id="habitDate" class="text-xs border rounded-full px-2 py-1"></div>
+<div class="flex gap-2 mb-3"><input id="habitInput" placeholder="Add habit..." class="flex-1 border rounded-full px-4 py-2 text-sm"><button onclick="addHabit()" class="bg-purple-600 text-white w-9 h-9 rounded-full">+</button></div>
+<div id="habitList" class="space-y-2 max-h-64 overflow-auto"></div>
 </div>
-<div class="glass rounded-2xl p-5 shadow-lg">
-<h2 class="font-semibold text-gray-800 mb-3">Quick Notes</h2>
-<textarea id="noteInput" placeholder="Write your thoughts..." class="w-full border rounded-xl p-3 text-sm h-24 outline-none"></textarea>
+<div class="glass rounded-2xl p-4 shadow-lg">
+<div class="flex justify-between items-center mb-3"><h2 class="font-semibold">Income & Expenses</h2><input type="date" id="financeDate" class="text-xs border rounded-full px-2 py-1" onchange="renderFinance()"></div>
+<div class="grid grid-cols-2 gap-2 mb-3">
+<input id="incomeInput" type="number" placeholder="Income (Rs)" class="border rounded-full px-3 py-2 text-sm">
+<input id="expenseInput" type="number" placeholder="Expense (Rs)" class="border rounded-full px-3 py-2 text-sm">
+<input id="financeDesc" placeholder="Description" class="col-span-2 border rounded-full px-3 py-2 text-sm">
+</div>
+<button onclick="addFinance()" class="w-full bg-green-600 text-white py-2 rounded-full text-sm mb-3">+ Add Entry</button>
+<div id="financeList" class="space-y-2 max-h-52 overflow-auto mb-3"></div>
+<div class="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl p-3">
+<h3 class="font-semibold text-sm mb-2">Summary Sheet (Auto)</h3>
+<div class="flex justify-between text-xs mb-1"><span>Total Income:</span><span id="totalIncome" class="font-bold">Rs 0</span></div>
+<div class="flex justify-between text-xs mb-1"><span>Total Expenses:</span><span id="totalExpenses" class="font-bold">Rs 0</span></div>
+<div class="border-t border-white/30 my-2"></div>
+<div class="flex justify-between text-sm font-bold"><span>Balance:</span><span id="balance">Rs 0</span></div>
+<div class="text-[10px] opacity-80 mt-1">Date: <span id="summaryDate"></span></div>
+</div>
+</div>
+<div class="glass rounded-2xl p-4 shadow-lg">
+<div class="flex justify-between items-center mb-3"><h2 class="font-semibold">Quick Notes</h2><input type="date" id="noteDate" class="text-xs border rounded-full px-2 py-1"></div>
+<textarea id="noteInput" placeholder="Write your thoughts..." class="w-full border rounded-xl p-3 text-sm h-20"></textarea>
 <button onclick="saveNote()" class="mt-2 bg-yellow-500 text-white px-4 py-2 rounded-full text-sm w-full">Save Note</button>
-<div id="notesList" class="mt-3 space-y-2 max-h-56 overflow-y-auto"></div>
+<div id="notesList" class="mt-3 space-y-2 max-h-52 overflow-auto"></div>
+<div class="mt-4 pt-3 border-t">
+<button onclick="saveToDrive()" class="w-full bg-indigo-600 text-white py-2 rounded-full text-xs mb-2">Backup to Drive Now</button>
+<button onclick="loadFromDrive()" class="w-full bg-gray-100 py-2 rounded-full text-xs">Restore from Drive</button>
+<div id="log" class="mt-2 text-[10px] text-gray-500 bg-gray-50 p-2 rounded h-16 overflow-auto">Ready...</div>
 </div>
-<div class="glass rounded-2xl p-5 shadow-lg">
-<h2 class="font-semibold text-gray-800 mb-3">Drive Backup</h2>
-<button onclick="saveToDrive()" class="w-full bg-green-600 text-white py-2.5 rounded-full text-sm mb-2">Backup to Drive Now</button>
-<button onclick="loadFromDrive()" class="w-full bg-gray-100 text-gray-800 py-2.5 rounded-full text-sm">Restore from Drive</button>
-<div id="log" class="mt-3 text-xs text-gray-500 bg-gray-50 p-2 rounded-lg h-20 overflow-y-auto">Ready...</div>
 </div>
 </div>
 </div>
 <script>
 const CLIENT_ID = "753703657750-o99crfnm2cgsevbeilqrbuo1qlq618nu.apps.googleusercontent.com";
 const SCOPES = "https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.appdata";
-let tokenClient; let accessToken = null; let gapiInited = false; let gisInited = false;
-const FILE_NAME = "life_management_backup.json";
-window.onload = () => {
-  gapi.load('client', async () => {
-    await gapi.client.init({ discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"] });
-    gapiInited = true;
-  });
-  setTimeout(() => {
-    tokenClient = google.accounts.oauth2.initTokenClient({
-      client_id: CLIENT_ID,
-      scope: SCOPES,
-      callback: (resp) => {
-        if (resp.error) { log("Auth Error: " + resp.error); return; }
-        accessToken = resp.access_token;
-        localStorage.setItem("drive_token", accessToken);
-        updateDriveUI(true);
-        log("Drive Connected!");
-        saveToDrive();
-      }
-    });
-    gisInited = true;
-  }, 1000);
-  loadLocal();
-};
-function log(m){ document.getElementById("log").innerHTML = new Date().toLocaleTimeString() + " - " + m + "<br>" + document.getElementById("log").innerHTML; }
-function handleAuthClick(){
-  if(accessToken){ if(confirm("Disconnect Drive?")){ accessToken=null; localStorage.removeItem("drive_token"); updateDriveUI(false); } return; }
-  if(!gapiInited ||!gisInited){ log("Please wait... Google is loading"); setTimeout(handleAuthClick, 1500); return; }
-  tokenClient.requestAccessToken({prompt: 'consent'});
-}
-function updateDriveUI(c){
-  const s = document.getElementById("driveStatus"); const b = document.getElementById("driveBtn");
-  if(c){ s.className="text-xs bg-green-100 text-green-700 px-3 py-1.5 rounded-full"; s.innerHTML=' Drive: Connected'; b.innerHTML='Disconnect'; }
-  else { s.className="text-xs bg-red-100 text-red-700 px-3 py-1.5 rounded-full"; s.innerHTML=' Drive: Not Connected'; b.innerHTML='Connect Drive'; }
-}
-let tasks = JSON.parse(localStorage.getItem("lm_tasks")||"[]");
-let habits = JSON.parse(localStorage.getItem("lm_habits")||"[]");
-let notes = JSON.parse(localStorage.getItem("lm_notes")||"[]");
-function saveLocal(){ localStorage.setItem("lm_tasks", JSON.stringify(tasks)); localStorage.setItem("lm_habits", JSON.stringify(habits)); localStorage.setItem("lm_notes", JSON.stringify(notes)); updateStats(); renderAll(); }
-function loadLocal(){ renderAll(); updateStats(); }
-function updateStats(){ document.getElementById("statTasks").innerText=tasks.length; document.getElementById("statDone").innerText=tasks.filter(t=>t.done).length; document.getElementById("statHabits").innerText=habits.length; document.getElementById("statNotes").innerText=notes.length; }
-function addTask(){ const v=document.getElementById("taskInput").value.trim(); if(!v) return; tasks.unshift({id:Date.now(), text:v, done:false}); document.getElementById("taskInput").value=""; saveLocal(); if(accessToken) saveToDrive(); }
-function toggleTask(id){ const t=tasks.find(x=>x.id==id); if(t){ t.done=!t.done; saveLocal(); if(accessToken) saveToDrive(); } }
-function delTask(id){ tasks=tasks.filter(x=>x.id!=id); saveLocal(); if(accessToken) saveToDrive(); }
-function addHabit(){ const v=document.getElementById("habitInput").value.trim(); if(!v) return; habits.push({id:Date.now(), text:v, streak:0, doneToday:false}); document.getElementById("habitInput").value=""; saveLocal(); if(accessToken) saveToDrive(); }
-function toggleHabit(id){ const h=habits.find(x=>x.id==id); if(h){ h.doneToday=!h.doneToday; if(h.doneToday) h.streak++; else h.streak=Math.max(0,h.streak-1); saveLocal(); if(accessToken) saveToDrive(); } }
-function delHabit(id){ habits=habits.filter(x=>x.id!=id); saveLocal(); if(accessToken) saveToDrive(); }
-function saveNote(){ const v=document.getElementById("noteInput").value.trim(); if(!v) return; notes.unshift({id:Date.now(), text:v, time:new Date().toLocaleString()}); document.getElementById("noteInput").value=""; saveLocal(); if(accessToken) saveToDrive(); }
-function delNote(id){ notes=notes.filter(x=>x.id!=id); saveLocal(); if(accessToken) saveToDrive(); }
-function renderAll(){
-  document.getElementById("taskList").innerHTML=tasks.map(t=>`<div class="flex items-center gap-2 bg-white p-2.5 rounded-xl border text-sm"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${t.id})"><span class="flex-1 ${t.done?'line-through text-gray-400':''}">${t.text}</span><button onclick="delTask(${t.id})">🗑️</button></div>`).join('') || '<p class="text-xs text-gray-400 text-center py-4">No tasks</p>';
-  document.getElementById("habitList").innerHTML=habits.map(h=>`<div class="flex items-center gap-2 bg-white p-2.5 rounded-xl border text-sm"><button onclick="toggleHabit(${h.id})" class="w-6 h-6 rounded-full ${h.doneToday?'bg-green-500 text-white':'bg-gray-200'}">✓</button><span class="flex-1">${h.text}</span><span class="text-xs bg-orange-100 px-2 py-0.5 rounded-full">${h.streak}🔥</span><button onclick="delHabit(${h.id})">🗑️</button></div>`).join('') || '<p class="text-xs text-gray-400 text-center">No habits</p>';
-  document.getElementById("notesList").innerHTML=notes.map(n=>`<div class="bg-yellow-50 p-2.5 rounded-xl border text-sm"><div>${n.text}</div><div class="flex justify-between mt-1"><span class="text-[10px] text-gray-400">${n.time}</span><button onclick="delNote(${n.id})" class="text-red-400">Delete</button></div></div>`).join('') || '<p class="text-xs text-gray-400 text-center">No notes</p>';
-}
-async function saveToDrive(){
-  if(!accessToken){ log("Drive not connected"); return; }
-  const data = { tasks, habits, notes, updated: new Date().toISOString() };
-  try{
-    log("Finding backup...");
-    const list = await gapi.client.drive.files.list({ q: `name='${FILE_NAME}' and trashed=false`, fields: "files(id,name)" });
-    const content = JSON.stringify(data);
-    const blob = new Blob([content], {type: 'application/json'});
-    if(list.result.files.length>0){
-      const fileId = list.result.files[0].id;
-      await fetch(`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`, { method: 'PATCH', headers: { 'Authorization': `Bearer ${accessToken}` }, body: blob });
-      log("Backup updated ✅");
-    } else {
-      const metadata = { name: FILE_NAME, mimeType: 'application/json' };
-      const form = new FormData(); form.append('metadata', new Blob([JSON.stringify(metadata)], {type:'application/json'})); form.append('file', blob);
-      await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', { method:'POST', headers:{'Authorization':`Bearer ${accessToken}`}, body: form });
-      log("Backup created ✅");
-    }
-  }catch(e){ log("Error: "+e.message); }
-}
-async function loadFromDrive(){
-  if(!accessToken){ alert("Pehle Drive connect karen!"); return; }
-  try{
-    log("Searching Drive...");
-    const list = await gapi.client.drive.files.list({ q: `name='${FILE_NAME}' and trashed=false`, fields: "files(id,name)" });
-    if(list.result.files.length==0){ log("No backup found"); return; }
-    const fileId = list.result.files[0].id;
-    const res = await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`, { headers:{'Authorization':`Bearer ${accessToken}`} });
-    const data = await res.json();
-    if(data.tasks){ tasks=data.tasks; habits=data.habits||[]; notes=data.notes||[]; saveLocal(); log("Restored ✅"); alert("Restored!"); }
-  }catch(e){ log("Restore Error: "+e.message); }
-}
+let tokenClient, accessToken=null, gapiInited=false, gisInited=false;
+const FILE_NAME="life_management_backup.json";
+const today = new Date().toISOString().split('T')[0];
+document.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('input[type=date]').forEach(el=>el.value=today); document.getElementById('summaryDate').innerText=today;});
+window.onload=()=>{gapi.load('client',async()=>{await gapi.client.init({discoveryDocs:["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"]}); gapiInited=true;}); setTimeout(()=>{tokenClient=google.accounts.oauth2.initTokenClient({client_id:CLIENT_ID, scope:SCOPES, callback:(resp)=>{if(resp.error){log("Error "+resp.error);return;} accessToken=resp.access_token; localStorage.setItem("drive_token",accessToken); updateDriveUI(true); log("Drive Connected"); saveToDrive();}}); gisInited=true;},1000); loadLocal(); const saved=localStorage.getItem("drive_token"); if(saved){accessToken=saved; updateDriveUI(true);}};
+function log(m){const l=document.getElementById("log"); l.innerHTML=new Date().toLocaleTimeString()+" - "+m+"<br>"+l.innerHTML;}
+function handleAuthClick(){if(accessToken){if(confirm("Disconnect?")){accessToken=null; localStorage.removeItem("drive_token"); updateDriveUI(false);} return;} if(!gapiInited||!gisInited){log("Loading..."); setTimeout(handleAuthClick,1000); return;} tokenClient.requestAccessToken({prompt:'consent'});}
+function updateDriveUI(c){const s=document.getElementById("driveStatus"), b=document.getElementById("driveBtn"); if(c){s.className="text-[11px] bg-green-100 text-green-700 px-3 py-1 rounded-full"; s.innerText="Drive: Connected"; b.innerText="Disconnect";} else{s.className="text-[11px] bg-red-100 text-red-700 px-3 py-1 rounded-full"; s.innerText="Drive: Not Connected"; b.innerText="Connect Drive";}}
+let tasks=JSON.parse(localStorage.getItem("lm_tasks")||"[]"); let habits=JSON.parse(localStorage.getItem("lm_habits")||"[]"); let notes=JSON.parse(localStorage.getItem("lm_notes")||"[]"); let finances=JSON.parse(localStorage.getItem("lm_finances")||"[]");
+function saveLocal(){localStorage.setItem("lm_tasks",JSON.stringify(tasks)); localStorage.setItem("lm_habits",JSON.stringify(habits)); localStorage.setItem("lm_notes",JSON.stringify(notes)); localStorage.setItem("lm_finances",JSON.stringify(finances)); renderAll();}
+function loadLocal(){renderAll();}
+function renderAll(){document.getElementById("taskList").innerHTML=tasks.map(t=>`<div class="flex items-center gap-2 bg-white p-2 rounded-xl border text-sm"><input type="checkbox" ${t.done?'checked':''} onchange="toggleTask(${t.id})"><span class="flex-1 ${t.done?'line-through text-gray-400':''}">${t.text}</span><span class="text-[9px] text-gray-400">${t.date||''}</span><button onclick="delTask(${t.id})">🗑️</button></div>`).join('') || '<p class="text-xs text-center text-gray-400">No tasks</p>'; document.getElementById("habitList").innerHTML=habits.map(h=>`<div class="flex items-center gap-2 bg-white p-2 rounded-xl border text-sm"><button onclick="toggleHabit(${h.id})" class="w-6 h-6 rounded-full ${h.doneToday?'bg-green-500 text-white':'bg-gray-200'}">✓</button><span class="flex-1">${h.text}</span><span class="text-[10px] bg-orange-100 px-2 rounded-full">${h.streak}🔥</span><button onclick="delHabit(${h.id})">🗑️</button></div>`).join('') || '<p class="text-xs text-center text-gray-400">No habits</p>'; document.getElementById("notesList").innerHTML=notes.map(n=>`<div class="bg-yellow-50 p-2 rounded-xl border text-sm"><div>${n.text}</div><div class="flex justify-between mt-1"><span class="text-[10px] text-gray-400">${n.time} ${n.date||''}</span><button onclick="delNote(${n.id})" class="text-red-400 text-xs">Delete</button></div></div>`).join('') || '<p class="text-xs text-center text-gray-400">No notes</p>'; renderFinance(); document.getElementById("statTasks").innerText=tasks.length; document.getElementById("statDone").innerText=tasks.filter(t=>t.done).length; document.getElementById("statHabits").innerText=habits.length; document.getElementById("statNotes").innerText=notes.length;}
+function addTask(){const v=document.getElementById("taskInput").value.trim(); const d=document.getElementById("taskDate").value; if(!v)return; tasks.unshift({id:Date.now(), text:v, done:false, date:d}); document.getElementById("taskInput").value=""; saveLocal(); if(accessToken)saveToDrive();}
+function toggleTask(id){const t=tasks.find(x=>x.id==id); if(t){t.done=!t.done; saveLocal(); if(accessToken)saveToDrive();}}
+function delTask(id){tasks=tasks.filter(x=>x.id!=id); saveLocal(); if(accessToken)saveToDrive();}
+function addHabit(){const v=document.getElementById("habitInput").value.trim(); if(!v)return; habits.push({id:Date.now(), text:v, streak:0, doneToday:false, date:document.getElementById("habitDate").value}); document.getElementById("habitInput").value=""; saveLocal(); if(accessToken)saveToDrive();}
+function toggleHabit(id){const h=habits.find(x=>x.id==id); if(h){h.doneToday=!h.doneToday; if(h.doneToday)h.streak++; else h.streak=Math.max(0,h.streak-1); saveLocal(); if(accessToken)saveToDrive();}}
+function delHabit(id){habits=habits.filter(x=>x.id!=id); saveLocal(); if(accessToken)saveToDrive();}
+function saveNote(){const v=document.getElementById("noteInput").value.trim(); if(!v)return; notes.unshift({id:Date.now(), text:v, time:new Date().toLocaleString(), date:document.getElementById("noteDate").value}); document.getElementById("noteInput").value=""; saveLocal(); if(accessToken)saveToDrive();}
+function delNote(id){notes=notes.filter(x=>x.id!=id); saveLocal(); if(accessToken)saveToDrive();}
+function addFinance(){const inc=parseFloat(document.getElementById("incomeInput").value)||0; const exp=parseFloat(document.getElementById("expenseInput").value)||0; const desc=document.getElementById("financeDesc").value.trim()||"Entry"; const date=document.getElementById("financeDate").value||today; if(inc==0 && exp==0) return alert("Income ya Expense likhen"); finances.unshift({id:Date.now(), income:inc, expense:exp, desc, date}); document.getElementById("incomeInput").value=""; document.getElementById("expenseInput").value=""; document.getElementById("financeDesc").value=""; saveLocal(); if(accessToken)saveToDrive();}
+function delFinance(id){finances=finances.filter(x=>x.id!=id); saveLocal(); if(accessToken)saveToDrive();}
+function renderFinance(){const selectedDate=document.getElementById("financeDate")?.value; let filtered = finances; if(selectedDate){ filtered = finances.filter(f=>f.date==selectedDate); document.getElementById("summaryDate").innerText=selectedDate; } document.getElementById("financeList").innerHTML=filtered.map(f=>`<div class="flex justify-between bg-white p-2 rounded-xl border text-xs"><span>${f.desc} <br><small class="text-gray-400">${f.date}</small></span><span class="text-right"><span class="text-green-600">+${f.income}</span> <span class="text-red-600">-${f.expense}</span><button onclick="delFinance(${f.id})" class="ml-2">🗑️</button></span></div>`).join('') || '<p class="text-xs text-center text-gray-400">No entries for this date</p>'; const totalInc = filtered.reduce((s,f)=>s+f.income,0); const totalExp = filtered.reduce((s,f)=>s+f.expense,0); document.getElementById("totalIncome").innerText="Rs "+totalInc.toLocaleString(); document.getElementById("totalExpenses").innerText="Rs "+totalExp.toLocaleString(); document.getElementById("balance").innerText="Rs "+(totalInc-totalExp).toLocaleString();}
+async function saveToDrive(){if(!accessToken){log("Not connected"); return;} const data={tasks,habits,notes,finances, updated:new Date().toISOString()}; try{log("Finding file..."); const list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`, fields:"files(id,name)"}); const blob=new Blob([JSON.stringify(data)],{type:'application/json'}); if(list.result.files.length>0){const fileId=list.result.files[0].id; await fetch(`https://www.googleapis.com/upload/drive/v3/files/${fileId}?uploadType=media`,{method:'PATCH', headers:{'Authorization':`Bearer ${accessToken}`}, body:blob}); log("Backup updated ✅");}else{const metadata={name:FILE_NAME, mimeType:'application/json'}; const form=new FormData(); form.append('metadata', new Blob([JSON.stringify(metadata)],{type:'application/json'})); form.append('file', blob); await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST', headers:{'Authorization':`Bearer ${accessToken}`}, body:form}); log("Backup created ✅");}}catch(e){log("Error "+e.message);}}
+async function loadFromDrive(){if(!accessToken){alert("Connect Drive first"); return;} try{log("Searching..."); const list=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`, fields:"files(id,name)"}); if(list.result.files.length==0){log("No backup"); return;} const fileId=list.result.files[0].id; const res=await fetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`,{headers:{'Authorization':`Bearer ${accessToken}`}}); const data=await res.json(); if(data.tasks){tasks=data.tasks; habits=data.habits||[]; notes=data.notes||[]; finances=data.finances||[]; saveLocal(); log("Restored ✅"); alert("Restored!");}}catch(e){log("Error "+e.message);}}
 </script>
 </body>
 </html>
