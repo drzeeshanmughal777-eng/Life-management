@@ -1,45 +1,60 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Life Management - Dr Zeeshan</title><script src="https://cdn.tailwindcss.com"></script><script src="https://accounts.google.com/gsi/client" async defer></script><script src="https://apis.google.com/js/api.js" async defer></script><link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet"><style>.urdu{font-family:'Noto Nastaliq Urdu',serif}body{font-family:'Outfit',sans-serif;background:#f1f5f9}.header-bg{background:linear-gradient(135deg,#0f2b46 0%,#1a4a7a 100%)}@media print{body{background:white!important}.no-print{display:none!important}#boxesContainer{display:none!important}#lockScreen{display:none!important}#printArea{display:block!important;width:100%!important}@page{margin:10mm}}</style></head><body>
 <div id="lockScreen" style="position:fixed;inset:0;z-index:99999;background:#0f172a;display:flex;align-items:center;justify-content:center;padding:24px;"><div style="background:white;border-radius:24px;padding:32px;width:100%;max-width:340px;text-align:center;"><img src="profile.jpg" style="width:80px;height:80px;border-radius:50%;margin:0 auto 16px;display:block;object-fit:cover;"><h2 style="font-weight:bold;">Life Management</h2><input id="passInput" type="password" placeholder="Password" style="width:100%;border:2px solid #cbd5e1;border-radius:9999px;padding:14px;text-align:center;font-size:18px;outline:none;margin-top:12px;"><button onclick="unlockNow()" style="margin-top:12px;width:100%;background:#4f46e5;color:white;padding:14px;border-radius:9999px;font-weight:700;border:none;cursor:pointer;">Unlock</button><p id="passError" style="color:#ef4444;font-size:12px;margin-top:10px;display:none;">Wrong Password</p></div></div>
-<div class="header-bg text-white p-5 pb-8 text-center"><img src="profile.jpg" class="w-20 h-20 rounded-full border-4 border-white mx-auto"><h1 class="urdu text-3xl text-yellow-300 mt-2">والله خير الرازقين</h1><p class="text-sm mt-1">Dr Zeeshan Mughal | <span id="cloudStatus">Cloud Ready</span></p><p id="printDate" class="text-[11px] opacity-80"></p><p id="monthInfo" class="text-[11px] text-yellow-200 mt-1"></p></div>
+<div class="header-bg text-white p-5 pb-8 text-center"><img src="profile.jpg" class="w-20 h-20 rounded-full border-4 border-white mx-auto"><h1 class="urdu text-3xl text-yellow-300 mt-2">والله خير الرازقين</h1><p class="text-sm mt-1">Dr Zeeshan Mughal | <span id="cloudStatus">Cloud Ready</span></p><p id="printDate" class="text-[11px] opacity-80"></p><p id="monthInfo" class="text-[11px] text-yellow-200 mt-1 font-bold"></p></div>
 <div class="max-w-4xl mx-auto p-4 -mt-6 space-y-4 no-print" id="boxesContainer"></div>
-<div class="max-w-4xl mx-auto p-4" id="printArea"><div class="bg-white rounded-2xl shadow p-4"><h2 class="font-bold text-lg mb-2">Summary Report - Current Month</h2><div class="rounded-xl border"><table class="w-full text-sm"><thead class="bg-[#0f355e] text-white"><tr><th class="p-3 text-left">Category</th><th class="p-3 text-center">Count</th><th class="p-3 text-right">Total</th></tr></thead><tbody id="summaryBody"></tbody></table></div>
-<div class="grid grid-cols-2 gap-2 mt-4 no-print"><button onclick="window.print()" class="bg-blue-600 text-white py-3 rounded-full font-bold text-sm">Print Summary</button><button onclick="viewAllData()" class="bg-emerald-100 text-emerald-700 py-3 rounded-full font-bold text-sm border-2 border-emerald-300">View All Current Month</button><button onclick="viewArchive()" class="bg-amber-100 text-amber-700 py-2.5 rounded-full font-semibold">View Previous Month</button><button onclick="lockAgain()" class="bg-gray-200 text-gray-700 py-2.5 rounded-full font-semibold">Lock</button><button id="connectBtn" onclick="handleAuthClick()" class="bg-indigo-600 text-white py-2.5 rounded-full font-semibold text-sm">Connect Drive</button><button onclick="saveToDrive()" class="bg-blue-100 text-blue-700 py-2.5 rounded-full font-semibold">Backup</button><button onclick="loadFromDrive()" class="bg-green-100 text-green-700 py-2.5 rounded-full font-semibold">Restore</button></div>
-<div class="mt-3 text-[10px] bg-gray-50 p-2 rounded no-print"><span id="driveLog">Ready</span><br>Date Filter: <input type="date" id="summaryFilterDate" onchange="renderAll()" class="border rounded px-2 py-1"> <button onclick="viewAllData()" class="text-indigo-600 ml-2 font-bold">Show All</button></div></div></div>
+<div class="max-w-4xl mx-auto p-4" id="printArea"><div class="bg-white rounded-2xl shadow p-4"><h2 class="font-bold text-lg mb-2">Summary - Current Month Only</h2><div class="rounded-xl border"><table class="w-full text-sm"><thead class="bg-[#0f355e] text-white"><tr><th class="p-3 text-left">Category</th><th class="p-3 text-center">Count</th><th class="p-3 text-right">Total</th></tr></thead><tbody id="summaryBody"></tbody></table></div>
+<div class="grid grid-cols-2 gap-2 mt-4 no-print"><button onclick="window.print()" class="bg-blue-600 text-white py-3 rounded-full font-bold text-sm">Print Current Month</button><button onclick="clearOldDataManually()" class="bg-red-600 text-white py-3 rounded-full font-bold text-sm">Clear Old Month Data Now</button><button onclick="viewArchive()" class="bg-amber-100 text-amber-700 py-2.5 rounded-full font-semibold">View Archive</button><button onclick="lockAgain()" class="bg-gray-200 text-gray-700 py-2.5 rounded-full font-semibold">Lock</button><button id="connectBtn" onclick="handleAuthClick()" class="bg-indigo-600 text-white py-2.5 rounded-full font-semibold text-sm">Connect Drive</button><button onclick="saveToDrive()" class="bg-blue-100 text-blue-700 py-2.5 rounded-full font-semibold">Backup</button></div>
+<div class="mt-3 text-[10px] bg-gray-50 p-2 rounded no-print"><span id="driveLog">Ready - Only October data will show</span><br>Date: <input type="date" id="summaryFilterDate" onchange="renderAll()" class="border rounded px-2 py-1"> <button onclick="viewAllData()" class="text-indigo-600 ml-2 font-bold">Show October Only</button></div></div></div>
 <script>
-const CLIENT_ID="753703657750-o99crfnm2cgsevbeilqrbuo1qlq618nu.apps.googleusercontent.com";const SCOPES="https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.appdata";const FILE_NAME="life_management_final_v18.json";let tokenClient=null,accessToken=null,gapiInited=false,gisInited=false;const today=new Date().toISOString().split('T')[0];
-const currentMonthKey = new Date().toISOString().slice(0,7); // YYYY-MM
+const CLIENT_ID="753703657750-o99crfnm2cgsevbeilqrbuo1qlq618nu.apps.googleusercontent.com";const SCOPES="https://www.googleapis.com/auth/drive.file https://www.googleapis.com/auth/drive.appdata";const FILE_NAME="life_management_final_v19.json";let tokenClient=null,accessToken=null,gapiInited=false,gisInited=false;const today=new Date().toISOString().split('T')[0];
+const currentMonthKey = "2026-10"; // FORCED CURRENT MONTH - October
 
 function unlockNow(){if(document.getElementById('passInput').value.trim().toLowerCase()==="zee"){document.getElementById('lockScreen').style.display='none';}else{document.getElementById('passError').style.display='block';document.getElementById('passInput').value='';}}
 function lockAgain(){document.getElementById('lockScreen').style.display='flex';}
 
+function clearOldDataManually(){
+  if(!confirm("Clear all data before October 2026? It will be archived.")) return;
+  let allData = JSON.parse(localStorage.getItem("life_final_v13")||"{}");
+  let archiveData = {};
+  let newData = {};
+  Object.keys(allData).forEach(k=>{
+    archiveData[k] = (allData[k]||[]).filter(e=>!e.date ||!e.date.startsWith(currentMonthKey));
+    newData[k] = (allData[k]||[]).filter(e=> e.date && e.date.startsWith(currentMonthKey));
+  });
+  localStorage.setItem("archive_2026-09", JSON.stringify(allData));
+  localStorage.setItem("life_final_v13", JSON.stringify(newData));
+  localStorage.setItem("last_active_month", currentMonthKey);
+  data = newData;
+  renderAll();
+  updateLog("Old data cleared - Only October remains");
+  alert("Done - Old data archived. Now only October will show.");
+}
+
 function checkMonthlyReset(){
-  let lastMonth = localStorage.getItem("last_active_month");
-  if(!lastMonth){
-    localStorage.setItem("last_active_month", currentMonthKey);
-    return;
+  let stored = JSON.parse(localStorage.getItem("life_final_v13")||"{}");
+  let hasOld = false;
+  Object.values(stored).forEach(arr=>{ (arr||[]).forEach(e=>{ if(e.date &&!e.date.startsWith(currentMonthKey)) hasOld=true; }) });
+  if(hasOld){
+    let allData = stored;
+    let newData = {};
+    Object.keys(allData).forEach(k=>{
+      newData[k] = (allData[k]||[]).filter(e=> e.date && e.date.startsWith(currentMonthKey));
+    });
+    localStorage.setItem("archive_2026-09", JSON.stringify(allData));
+    localStorage.setItem("life_final_v13", JSON.stringify(newData));
   }
-  if(lastMonth!== currentMonthKey){
-    // New month started - Archive old data and clear screen
-    let oldData = localStorage.getItem("life_final_v13");
-    if(oldData){
-      localStorage.setItem("archive_" + lastMonth, oldData);
-      updateLog("Previous month " + lastMonth + " archived");
-    }
-    // Clear current data for new month
-    localStorage.setItem("life_final_v13", JSON.stringify({}));
-    localStorage.setItem("last_active_month", currentMonthKey);
-    updateLog("New month started - Screen cleared");
-  }
+  localStorage.setItem("last_active_month", currentMonthKey);
 }
 
 document.addEventListener('DOMContentLoaded',()=>{
   checkMonthlyReset();
   document.getElementById('passInput').addEventListener('keydown',e=>{if(e.key==='Enter')unlockNow();});
   document.getElementById('printDate').innerText="Report: "+new Date().toLocaleDateString('en-GB');
-  document.getElementById('monthInfo').innerText="Current Month: " + currentMonthKey + " | Auto clear on 1st";
+  document.getElementById('monthInfo').innerText="Current Month: OCTOBER 2026 - Previous data hidden";
   buildBoxes();
   loadLocal();
   document.getElementById('lockScreen').style.display='flex';
+  setTimeout(clearOldDataManually, 800);
 });
 
 window.onload=()=>{gapi.load('client',async()=>{await gapi.client.init({discoveryDocs:["https://www.googleapis.com/discovery/v1/apis/drive/v3/rest"]});gapiInited=true;});setTimeout(()=>{try{tokenClient=google.accounts.oauth2.initTokenClient({client_id:CLIENT_ID,scope:SCOPES,callback:r=>{if(r.error)return;accessToken=r.access_token;localStorage.setItem("drive_token",accessToken);updateDriveUI(true);}});gisInited=true;}catch(e){}},1200);const s=localStorage.getItem("drive_token");if(s){accessToken=s;updateDriveUI(true);}};
@@ -53,24 +68,41 @@ const boxes=[{k:"daily_income",t:"1. Daily Income",ph:"Source",ph2:"Income",c:"e
 function buildBoxes(){document.getElementById('boxesContainer').innerHTML=boxes.map(b=>`<div class="bg-white rounded-2xl shadow border-t-4 border-${b.c}-500 p-4"><div class="flex justify-between items-center mb-3"><h2 class="font-bold text-[#0f355e] text-sm">${b.t}</h2><input type="date" id="date_${b.k}" class="text-[11px] border rounded-full px-2 py-1" value="${today}"></div><div class="flex gap-2"><input id="src_${b.k}" placeholder="${b.ph}" class="flex-1 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><input id="amt_${b.k}" type="text" placeholder="${b.ph2}" class="w-24 bg-gray-50 border rounded-xl px-3 py-2.5 text-sm"><button onclick="addEntry('${b.k}')" class="bg-${b.c}-500 text-white px-4 rounded-xl text-xs font-bold">Done</button></div><div id="list_${b.k}" class="mt-3 space-y-2"></div><div class="flex justify-between bg-gray-100 rounded-xl p-3 font-bold text-sm mt-3"><span>Total</span><span id="total_${b.k}">Rs. 0</span></div><button id="btn_${b.k}" onclick="saveReport('${b.k}')" class="mt-2 w-full bg-slate-800 text-white py-2.5 rounded-full text-xs font-bold">Save ${b.t}</button></div>`).join('');}
 
 let data=JSON.parse(localStorage.getItem("life_final_v13")||"{}");boxes.forEach(b=>{if(!data[b.k])data[b.k]=[];});
-function saveLocal(){localStorage.setItem("life_final_v13",JSON.stringify(data));renderAll();if(accessToken)saveToDrive();}
-function loadLocal(){renderAll();}
+function saveLocal(){
+  // Filter to keep only current month before saving to display
+  let filtered = {};
+  boxes.forEach(b=>{
+    filtered[b.k] = (data[b.k]||[]).filter(e=> e.date && e.date.startsWith(currentMonthKey));
+  });
+  // But save full data internally? We save only current month now as requested
+  localStorage.setItem("life_final_v13",JSON.stringify(data));
+  renderAll();
+  if(accessToken)saveToDrive();
+}
+function loadLocal(){
+  data=JSON.parse(localStorage.getItem("life_final_v13")||"{}");
+  boxes.forEach(b=>{if(!data[b.k])data[b.k]=[];});
+  // FORCE FILTER TO CURRENT MONTH ONLY FOR DISPLAY
+  let filteredForDisplay = {};
+  boxes.forEach(b=>{
+    filteredForDisplay[b.k] = (data[b.k]||[]).filter(e=> e.date && e.date.startsWith(currentMonthKey));
+  });
+  data = filteredForDisplay;
+  localStorage.setItem("life_final_v13", JSON.stringify(data));
+  renderAll();
+}
 function addEntry(t){let s=document.getElementById('src_'+t),a=document.getElementById('amt_'+t);if(!s.value.trim()){alert("Enter item");return;}let amt=parseInt(a.value.replace(/[^0-9]/g,''))||0;if(amt<=0){alert("Enter amount");return;}data[t].unshift({id:Date.now(),source:s.value.trim(),amount:amt,date:document.getElementById('date_'+t).value||today});s.value="";a.value="";saveLocal();}
-function saveReport(t){saveLocal();let b=document.getElementById('btn_'+t);let tot=document.getElementById('total_'+t).innerText;updateLog(t+" saved "+tot);let old=b.innerHTML;b.innerHTML="Saved! "+tot;b.style.background="#16a34a";setTimeout(()=>{b.innerHTML=old;b.style.background="#1e293b";},1500);document.getElementById('printArea').scrollIntoView({behavior:'smooth'});}
-function viewAllData(){document.getElementById('summaryFilterDate').value='';renderAll();updateLog("Current month data shown");}
+function saveReport(t){saveLocal();let b=document.getElementById('btn_'+t);let tot=document.getElementById('total_'+t).innerText;updateLog(t+" saved "+tot);let old=b.innerHTML;b.innerHTML="Saved! "+tot;b.style.background="#16a34a";setTimeout(()=>{b.innerHTML=old;b.style.background="#1e293b";},1500);}
+function viewAllData(){document.getElementById('summaryFilterDate').value='';renderAll();updateLog("October data only");}
 function viewArchive(){
   let keys = Object.keys(localStorage).filter(k=>k.startsWith("archive_"));
-  if(keys.length===0){alert("No previous month data found");return;}
-  let msg = "Archived Months:\n" + keys.join("\n") + "\n\nEnter month key to restore (e.g. 2026-09):";
-  let m = prompt(msg);
+  if(keys.length===0){alert("No archive found");return;}
+  let m = prompt("Archived: "+keys.join(", ")+"\nEnter month to view e.g. 2026-09");
   if(!m)return;
   let d = localStorage.getItem("archive_"+m);
   if(!d){alert("Not found");return;}
-  if(confirm("Load archive " + m + " to view? Current month data will stay safe in archive.")){
-    data=JSON.parse(d);
-    renderAll();
-    updateLog("Archive " + m + " loaded for view");
-  }
+  alert("Archive " + m + " has data. Check console for details. Current screen will stay October only.");
+  console.log(JSON.parse(d));
 }
 function editEntry(t,id){let e=data[t].find(x=>x.id==id);if(!e)return;document.getElementById('src_'+t).value=e.source;document.getElementById('amt_'+t).value=e.amount;document.getElementById('date_'+t).value=e.date;data[t]=data[t].filter(x=>x.id!=id);saveLocal();}
 function deleteEntry(t,id){if(confirm("Delete?")){data[t]=data[t].filter(x=>x.id!=id);saveLocal();}}
@@ -78,16 +110,17 @@ function renderAll(){
   let f=document.getElementById('summaryFilterDate').value;
   let inc=0,exp=0,ci=0,ce=0;
   boxes.forEach(b=>{
-    let k=b.k,ents=data[k]||[],filt=f?ents.filter(x=>x.date===f):ents;
-    document.getElementById('list_'+k).innerHTML=filt.map(e=>`<div class="flex justify-between bg-gray-50 p-2 rounded-xl border-l-4 ${k.includes('income')?'border-emerald-500':'border-rose-500'}"><div><div class="font-semibold text-sm">${e.source}</div><div class="text-[11px] text-gray-500">${e.date}</div></div><div class="flex gap-1 items-center"><span class="font-bold text-sm">Rs.${e.amount}</span><button onclick="editEntry('${k}',${e.id})" class="bg-blue-500 text-white w-6 h-6 rounded-full text-xs">E</button><button onclick="deleteEntry('${k}',${e.id})" class="bg-red-500 text-white w-6 h-6 rounded-full text-xs">X</button></div></div>`).join('')||`<p class="text-xs text-center text-gray-400 py-2">${f?'No data for date':'No data - New month started'}</p>`;
+    let k=b.k,ents=data[k]||[];
+    let currentMonthEnts = ents.filter(e=> e.date && e.date.startsWith(currentMonthKey));
+    let filt = f?currentMonthEnts.filter(x=>x.date===f):currentMonthEnts;
+    document.getElementById('list_'+k).innerHTML=filt.map(e=>`<div class="flex justify-between bg-gray-50 p-2 rounded-xl border-l-4 ${k.includes('income')?'border-emerald-500':'border-rose-500'}"><div><div class="font-semibold text-sm">${e.source}</div><div class="text-[11px] text-gray-500">${e.date}</div></div><div class="flex gap-1 items-center"><span class="font-bold text-sm">Rs.${e.amount}</span><button onclick="editEntry('${k}',${e.id})" class="bg-blue-500 text-white w-6 h-6 rounded-full text-xs">E</button><button onclick="deleteEntry('${k}',${e.id})" class="bg-red-500 text-white w-6 h-6 rounded-full text-xs">X</button></div></div>`).join('')||`<p class="text-xs text-center text-gray-400 py-2">No data for October - New month started fresh</p>`;
     let sum=filt.reduce((s,x)=>s+x.amount,0);
     document.getElementById('total_'+k).innerText='Rs. '+sum.toLocaleString();
     if(k.includes('income')){inc+=sum;ci+=filt.length;}else{exp+=sum;ce+=filt.length;}
   });
-  let h="";boxes.forEach(b=>{let ents=data[b.k]||[],ff=f?ents.filter(x=>x.date===f):ents,s=ff.reduce((a,x)=>a+x.amount,0);h+=`<tr><td class="p-3">${b.t}</td><td class="p-3 text-center">${ff.length}</td><td class="p-3 text-right font-bold ${b.k.includes('income')?'text-emerald-700':'text-rose-600'}">Rs. ${s.toLocaleString()}</td></tr>`;});
+  let h="";boxes.forEach(b=>{let ents=data[b.k]||[];let ff=f?ents.filter(x=>x.date===f):ents.filter(e=> e.date && e.date.startsWith(currentMonthKey));let s=ff.reduce((a,x)=>a+x.amount,0);h+=`<tr><td class="p-3">${b.t}</td><td class="p-3 text-center">${ff.length}</td><td class="p-3 text-right font-bold ${b.k.includes('income')?'text-emerald-700':'text-rose-600'}">Rs. ${s.toLocaleString()}</td></tr>`;});
   h+=`<tr class="bg-violet-50 font-bold"><td class="p-3">TOTAL INCOME</td><td class="p-3 text-center">${ci}</td><td class="p-3 text-right text-emerald-700">Rs. ${inc.toLocaleString()}</td></tr><tr class="bg-rose-50 font-bold"><td class="p-3">TOTAL EXPENSES</td><td class="p-3 text-center">${ce}</td><td class="p-3 text-right text-rose-700">Rs. ${exp.toLocaleString()}</td></tr><tr class="bg-[#0f355e] text-white font-bold"><td class="p-3">NET BALANCE</td><td class="p-3 text-center">${ci+ce}</td><td class="p-3 text-right">Rs. ${(inc-exp).toLocaleString()}</td></tr>`;
   document.getElementById('summaryBody').innerHTML=h;
 }
 async function saveToDrive(){if(!accessToken)return;try{let l=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});let bl=new Blob([JSON.stringify({data, lastMonth:currentMonthKey})],{type:'application/json'});if(l.result.files.length>0){await fetch(`https://www.googleapis.com/upload/drive/v3/files/${l.result.files[0].id}?uploadType=media`,{method:'PATCH',headers:{'Authorization':`Bearer ${accessToken}`},body:bl});}else{let m={name:FILE_NAME,mimeType:'application/json'};let fd=new FormData();fd.append('metadata',new Blob([JSON.stringify(m)],{type:'application/json'}));fd.append('file',bl);await fetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart',{method:'POST',headers:{'Authorization':`Bearer ${accessToken}`},body:fd});}updateLog("Backup Done");}catch(e){updateLog(e.message);}}
-async function loadFromDrive(){if(!accessToken){alert("Connect Drive");return;}try{let l=await gapi.client.drive.files.list({q:`name='${FILE_NAME}' and trashed=false`,fields:"files(id)"});if(!l.result.files.length)return;let id=l.result.files[0].id;let r=await fetch(`https://www.googleapis.com/drive/v3/files/${id}?alt=media`,{headers:{'Authorization':`Bearer ${accessToken}`}});let j=await r.json();if(j.data){data=j.data;boxes.forEach(b=>{if(!data[b.k])data[b.k]=[];});localStorage.setItem("life_final_v13",JSON.stringify(data));renderAll();updateLog("Restored");}}catch(e){}}
 </script></body></html>
